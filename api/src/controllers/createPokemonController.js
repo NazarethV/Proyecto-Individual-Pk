@@ -2,67 +2,122 @@ const { Pokemon, Type } = require('../db');
 const { Sequelize } = require('sequelize');
 const Op = Sequelize.Op;
 
+// const createPokemonController = async (
+//     name, image, hp, attack, defense, speed, height, weight, types
+// ) => {
+//     console.log('types llega así: ', types)
+//     try {
+//         const existingPokemon = await Pokemon.findOne({
+//             where: {
+//                 name: {[Op.iLike]: name}
+//             }
+//         })
+
+//         if(existingPokemon){
+//             throw new Error('The pokemon already exists')
+//         }
+
+//         if(!types || types.length === 0){//Si types no existe o esta vacio
+//             throw new Error('The pokemon must have at least one type')
+
+//         }
+
+//         //
+//         // const [pokemon, created] = await Type.findOrCreate({
+//         //     where:{ name },
+//         //     defaults: {
+//         //         name, image, attack, defense, speed, height, weight, hp, types
+//         //     }
+//         // })
+
+//         const pokemon = await Pokemon.create({
+//             name,
+//             image,
+//             hp,
+//             attack,
+//             defense,
+//             speed,
+//             height,
+//             weight,
+//           });
+
+//         // if(!created) throw new Error("Este Pokemon ya existe en la Base de Datos");
+
+//         // const typesDB = await Type.findAll({ where: {name: types} })
+
+//         // pokemon.addTypes(typesDB);
+
+//         // return pokemon;
+
+//         const typesDB = await Type.findAll({ where: { name: types } });
+//         await pokemon.setTypes(typesDB);
+
+//         return pokemon;
+
+
+//     } catch (error) {
+//         console.log(error);
+//         throw new Error(error.message);
+//     }
+// }
+
+// module.exports = {
+//     createPokemonController
+// }
+
+
 const createPokemonController = async (
     name, image, hp, attack, defense, speed, height, weight, types
 ) => {
-    console.log('types llega así: ', types)
     try {
-        const [pokemon, created] = await Pokemon.findOrCreate({
-            where: { name },
-            defaults: {
-                name,
-                image,
-                hp,
-                attack,
-                defense,
-                speed,
-                height,
-                weight,
-                types
+        // Verificar si el Pokémon ya existe por nombre
+        const existingPokemon = await Pokemon.findOne({
+            where: {
+                name: { [Op.iLike]: name }
             }
         });
-        
-        if (!created) throw new Error("Este Pokemon ya existe ");
 
-        // Añadir los tipos al Pokemon después de crearlo
-        //const typesDB = await Type.findAll({ where: { name: { [Op.in]: types } } });
-        // if (!types || !Array.isArray(types)) {
-        //     throw new Error('Invalid types provided');
-        //   }
-          
+        if (existingPokemon) {
+            throw new Error('The pokemon already exists');
+        }
+
+        if (!types || types.length === 0) {
+            throw new Error('The pokemon must have at least one type');
+        }
+
+        // Crear el nuevo Pokémon sin asociar tipos por ahora
+        const newPokemon = await Pokemon.create({
+            name,
+            image,
+            hp,
+            attack,
+            defense,
+            speed,
+            height,
+            weight,
+        });
+
+        // Obtener instancias de tipos y establecer la asociación directamente
         const typesDB = await Type.findAll({ where: { name: types } });
-        
-          
-        pokemon.addTypes(typesDB);
 
-        // Recuperar el Pokémon con los tipos asociados
-        // const updatedPokemon = await Pokemon.findByPk(pokemon.id, {
-        //     include: [
-        //         {
-        //             model: Type,
-        //             as: 'Types',
-        //             attributes: ['id', 'name'],
-        //             through: {
-        //                 attributes: [],
-        //             },
-        //         },
-        //     ],
-        // });
+        if (!typesDB || typesDB.length === 0) {
+            throw new Error('Invalid types provided');
+        }
 
-        //return updatedPokemon;
-        return pokemon
+        // Asociar el nuevo Pokémon con los tipos encontrados
+        await newPokemon.setTypes(typesDB, { through: 'PokemonType' });
+
+        return newPokemon;
+
     } catch (error) {
         console.log(error);
         throw new Error(error.message);
     }
-}
+};
 
 module.exports = {
-    createPokemonController
+   createPokemonController
 }
-
-
-
 
 
 
