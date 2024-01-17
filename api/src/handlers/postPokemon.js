@@ -3,7 +3,7 @@ const { createPokemonController } = require('../controllers/createPokemonControl
 
 const postPokemon = async (req, res) => {
     try{
-        const { name, image, hp, attack, defense, speed, height, weight } = req.body
+        const { name, image, hp, attack, defense, speed, height, weight, type} = req.body
 
         const newPokemon = await createPokemonController(
             name,
@@ -13,7 +13,8 @@ const postPokemon = async (req, res) => {
             defense, 
             speed, 
             height, 
-            weight
+            weight,
+            type
         )
 
         res.status(201).json(newPokemon)
