@@ -22,7 +22,7 @@ const allPokemonsController = async () => {
     // Transformar la estructura de los tipos de la base de datos
     const transformedPokemonDB = pokemonDB.map((pokemon) => ({
       ...pokemon.toJSON(),
-      Types: pokemon.Types.map((type) => type.name),
+      types: pokemon.Types.map((type) => type.name),
     }));
 
 

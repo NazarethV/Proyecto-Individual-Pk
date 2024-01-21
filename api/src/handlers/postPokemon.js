@@ -20,15 +20,18 @@ const postPokemon = async (req, res) => {
         res.status(201).json(newPokemon)
 
     }catch(error){
+        console.log(error)
         if (
             error.message === "The pokemon already exists" ||
             error.message === "The pokemon must have at least one team"
         ) {
+            console.log(error)
             console.error(error.message);
             res.status(409).json({ error: error.message });
         } else {
+            console.log(error)
             console.error(error.message);
-            res.status(500).json({ error: "Internal Server Error" });
+            res.status(500).json({ error: error });
         }
     }
 }
