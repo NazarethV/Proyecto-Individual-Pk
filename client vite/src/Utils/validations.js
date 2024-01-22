@@ -58,12 +58,10 @@ const validations = (stateForm) => {
     }
 
 
-    // if(stateForm.types.length === 0){
-    //     errors.types = 'At least one type is required'
-    // }
-    if(stateForm.types === null){
+    if(stateForm.types.length === 0){
         errors.types = 'At least one type is required'
     }
+    
 
     return errors
 

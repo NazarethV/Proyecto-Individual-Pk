@@ -5,6 +5,8 @@ const postPokemon = async (req, res) => {
     try{
         const { name, image, hp, attack, defense, speed, height, weight, types } = req.body
 
+        console.log('Datos recibidos en postPokemon: ', req.body);
+
         const newPokemon = await createPokemonController(
             name,
             image,

@@ -59,75 +59,84 @@ const NewPokemon = () => {
   };
 
 
+  // const handleSelect = (event) => {
+  //   event.preventDefault()
+
+  //   setForm({
+  //     ...stateForm,
+  //     types: [...stateForm.types, event.target.value]
+  //   })
+
+  //   setErrors(
+  //     validations({
+  //       ...stateForm,
+  //       [event.target.name]: event.target.value
+  //     })
+  //   )
+  // }
+
   const handleSelect = (event) => {
-    event.preventDefault()
+    event.preventDefault();
+
+    // Verifica si el tipo ya está seleccionado antes de agregarlo
+    if (!selectedTypes.some((type) => type.name === event.target.value)) {
+      setSelectedTypes([...selectedTypes, { name: event.target.value }]);
+    }
+
     setForm({
       ...stateForm,
-      types: [...stateForm.types, event.target.value]
-    })
+      types: [...stateForm.types, event.target.value],
+    });
 
     setErrors(
       validations({
         ...stateForm,
-        [event.target.name]: event.target.value
+        [event.target.name]: event.target.value,
       })
-    )
-  }
-
-  
-
-
-  const handleChange2 = (event) => {
-    // Obtener el ID del tipo seleccionado desde el evento del cambio
-    const selectedTypeID = event.target.value;
-  
-    // Actualizar el estado de 'selectedTypes' y manejar la lógica de selección
-    setSelectedTypes((selectedTypes) => {
-      // Verificar si el tipo ya está presente en la lista de tipos seleccionados
-      const isSelected = selectedTypes.some((type) => type.id === selectedTypeID);
-  
-      // Si el tipo ya está seleccionado, deseleccionarlo
-      if (isSelected) {
-        // Actualizar el estado del formulario para quitar el tipo deseleccionado
-        setForm((stateForm) => ({
-          ...stateForm,
-          types: stateForm.types.filter((type) => type.id !== selectedTypeID),
-        }));
-        
-        // Retornar una nueva lista de tipos seleccionados después de quitar el tipo deseleccionado
-        return selectedTypes.filter((type) => type.id !== selectedTypeID);
-      } else {
-        // Si el tipo no está seleccionado, buscar el objeto de tipo correspondiente en la lista completa de tipos
-        const selectedType = types.find((type) => type.id === selectedTypeID);
-  
-        // Actualizar el estado del formulario para agregar el nuevo tipo seleccionado
-        setForm((stateForm) => ({
-          ...stateForm,
-          types: [...stateForm.types, selectedType],
-        }));
-  
-        // Retornar una nueva lista de tipos seleccionados que incluye el nuevo tipo agregado
-        return [...selectedTypes, selectedType];
-      }
-    });
+    );
   };
 
 
 
-  const handleRemoveType = (typeId) => {
-    setSelectedTypes(selectedTypes.filter((type) => type.id !== typeId));
 
+  // const handleRemoveType = (typeId) => {
+  //   setSelectedTypes(selectedTypes.filter((type) => type.id !== typeId));
+
+  //   setForm({
+  //     ...stateForm,
+  //     types: stateForm.types.filter((type) => type.id !== typeId),
+  //   });   
+  // }
+
+  const handleRemoveType = (typeName) => {
+    // Filtrar tipos en stateForm.types
+    const updatedTypes = stateForm.types.filter((type) => type !== typeName);
     setForm({
       ...stateForm,
-      types: stateForm.types.filter((type) => type.id !== typeId),
-    });   
-  }
+      types: updatedTypes,
+    });
+  
+    // Filtrar tipos en selectedTypes
+    const updatedSelectedTypes = selectedTypes.filter((type) => type.name !== typeName);
+    setSelectedTypes(updatedSelectedTypes);
+  };
+
+  // const handleRemoveType = (typeId) => {
+  //   setSelectedTypes(selectedTypes.filter((type) => type.id !== typeId));
+
+  //   setForm({
+  //     ...stateForm,
+  //     types: stateForm.types.filter((type) => type.id !== typeId),
+  //   });   
+  // }
+
+
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
     
     dispatch(createPokemon(stateForm))
-
   
     setForm(initialStateForm);
     setErrors(initialStateErrors);
@@ -283,46 +292,26 @@ const NewPokemon = () => {
               ))}
             </select>
 
-            <div>
+            {/* <div>
              {stateForm.types.map((type) =>
                 <span key={type}> {type} </span>)}
+            </div> */}
+
+            <div>
+                {selectedTypes.map((type) => (
+                  <div key={type.name}>
+                    <span>{type.name}</span>
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveType(type.name)}
+                    >
+                      X
+                    </button>
+                  </div>
+                ))}
             </div>
 
-            {/* <div>
-              {selectedTypes.map((type) => (
-                <div key={type.id}>
-                  <span>{type.name}</span>
-                  <button
-                    type='button'
-                    onClick={() => handleRemoveType(type.id)}
-                  >
-                    X
-                  </button>
-                </div>
-              ))}
-            </div> */}
 
-            {/* <div> 
-              {stateErrors.types && typeof stateErrors.types === 'string' && 
-                  <span>
-                    {stateErrors.types}
-                  </span> }
-            </div> */}
-
-            {/* <div>
-              {selectedTypes.map((type) => (
-                <div key={type.id}>
-                  <span className={styles.types}>{type.name}</span>
-                  <button
-                    type="button"
-                    className={styles.buttonX}
-                    onClick={() => handleRemoveType(type.id)}
-                  >
-                    X
-                  </button>
-                </div>
-              ))}
-            </div> */}
           </div>
         )}
         {stateErrors.types && (
@@ -330,15 +319,6 @@ const NewPokemon = () => {
         )}
         <br />
 
-        {/*Object.values(stateErrors).length === 0 && (
-          <button
-            className={styles.buttonSubmit}
-            disabled={disabledFunction()}
-            type="submit"
-          >
-            Crear Pokemon
-          </button>
-        )*/}
         <button
             disabled={disabledFunction()}
             type="submit"
@@ -354,3 +334,4 @@ const NewPokemon = () => {
 export default NewPokemon;
 
 
+////////////////////////////////////////////////////////////
