@@ -45,6 +45,7 @@ const rootReducer = (state = initialState, action) => {
                 pokemonId: action.payload,
             };
 
+            
         case GET_POKEMON_NAME:
             if(action.payload.error){
                 return {

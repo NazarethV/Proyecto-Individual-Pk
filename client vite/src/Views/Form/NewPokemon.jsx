@@ -1,3 +1,4 @@
+
 import React , { useEffect } from 'react'
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,7 +22,7 @@ const NewPokemon = () => {
     speed: '',
     height: '',
     weight: '',
-    types: [], // Cambia a null en lugar de un array vacío
+    types: [], 
   };
 
   useEffect(() => {
@@ -29,15 +30,15 @@ const NewPokemon = () => {
   }, [dispatch]);
 
   const initialStateErrors = {
-    name: 'Ingrese nombre del Pokemon',
-    image: "'Ingrese URL de la imagen del Pokemon'",
-    attack: 'Ingrese número de ataque',
-    defense: 'Ingrese número de defensa',
-    hp: 'Ingrese HP',
-    speed: 'Ingrese velocidad',
-    height: 'Ingrese altura',
-    weight: 'Ingrese peso',
-    types: 'Seleccione tipo',
+    name: 'Enter Pokemon Name',
+    image: 'Enter image URL',
+    attack: 'Enter Attack number',
+    defense: 'Enter Defense number',
+    hp: 'Enter Hp number',
+    speed: 'Enter Speed number',
+    height: 'Enter Height number',
+    weight: 'Enter Weight number',
+    types: 'Select Type/Types',
   };
 
   const [selectedTypes, setSelectedTypes] = useState([]);
@@ -58,22 +59,6 @@ const NewPokemon = () => {
     })
   };
 
-
-  // const handleSelect = (event) => {
-  //   event.preventDefault()
-
-  //   setForm({
-  //     ...stateForm,
-  //     types: [...stateForm.types, event.target.value]
-  //   })
-
-  //   setErrors(
-  //     validations({
-  //       ...stateForm,
-  //       [event.target.name]: event.target.value
-  //     })
-  //   )
-  // }
 
   const handleSelect = (event) => {
     event.preventDefault();
@@ -98,16 +83,6 @@ const NewPokemon = () => {
 
 
 
-
-  // const handleRemoveType = (typeId) => {
-  //   setSelectedTypes(selectedTypes.filter((type) => type.id !== typeId));
-
-  //   setForm({
-  //     ...stateForm,
-  //     types: stateForm.types.filter((type) => type.id !== typeId),
-  //   });   
-  // }
-
   const handleRemoveType = (typeName) => {
     // Filtrar tipos en stateForm.types
     const updatedTypes = stateForm.types.filter((type) => type !== typeName);
@@ -121,17 +96,6 @@ const NewPokemon = () => {
     setSelectedTypes(updatedSelectedTypes);
   };
 
-  // const handleRemoveType = (typeId) => {
-  //   setSelectedTypes(selectedTypes.filter((type) => type.id !== typeId));
-
-  //   setForm({
-  //     ...stateForm,
-  //     types: stateForm.types.filter((type) => type.id !== typeId),
-  //   });   
-  // }
-
-
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -143,14 +107,21 @@ const NewPokemon = () => {
     navigate('/home');
   };
 
+
   const disabledFunction = () => {
-    return Object.values(stateErrors).some((error) => error !== '');
+    const hasErrors = Object.values(stateErrors).some((error) => error !== '');
+  
+    // Verifico si el campo types está vacío
+    const isTypesEmpty = stateForm.types.length === 0;
+  
+    return hasErrors || isTypesEmpty;
   };
+
 
   return (
     <div>
     <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
-      <label>NAME POKEMON:</label>
+      <label>NAME:</label>
       <input
         type="text"
         name="name"
@@ -166,7 +137,7 @@ const NewPokemon = () => {
       )}
 
       
-      <label>HP POKEMON:</label>
+      <label>HP:</label>
       <input
         type="number"
         name="hp"
@@ -181,7 +152,7 @@ const NewPokemon = () => {
         </p>
       )}
       
-      <label>ATTACK POKEMON:</label>
+      <label>ATTACK:</label>
           <input
             type='number'
             name='attack'
@@ -196,7 +167,7 @@ const NewPokemon = () => {
               </p>
             )}
 
-      <label>DEFENSE POKEMON:</label>
+      <label>DEFENSE:</label>
           <input
             type='number'
             name='defense'
@@ -211,7 +182,7 @@ const NewPokemon = () => {
               </p>
             )}
 
-      <label>SPEED POKEMON:</label>
+      <label>SPEED:</label>
           <input
             type='number'
             name='speed'
@@ -226,7 +197,7 @@ const NewPokemon = () => {
               </p>
             )}
 
-        <label>HEIGHT POKEMON:</label>
+        <label>HEIGHT:</label>
           <input
             type='number'
             name='height'
@@ -242,7 +213,7 @@ const NewPokemon = () => {
             )}
 
 
-        <label>WEIGHT POKEMON:</label>
+        <label>WEIGHT:</label>
           <input
             type='number'
             name='weight'
@@ -258,7 +229,7 @@ const NewPokemon = () => {
             )}
 
 
-        <label>IMAGE POKEMON:</label>
+        <label>IMAGE:</label>
           <input
             type='text'
             name='image'
@@ -323,7 +294,7 @@ const NewPokemon = () => {
             disabled={disabledFunction()}
             type="submit"
           >
-            Crear Pokemon
+            Create Pokemon
           </button>
       </div>
     </form>
@@ -333,5 +304,3 @@ const NewPokemon = () => {
 
 export default NewPokemon;
 
-
-////////////////////////////////////////////////////////////

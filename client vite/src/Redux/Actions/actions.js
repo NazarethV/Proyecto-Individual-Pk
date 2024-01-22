@@ -54,10 +54,10 @@ export const getNamePokemons = (name) => {
 export const getPokemonID = (id) => {
     return async function (dispatch){
         try{
-            let response = await axios.get(`http://localhost:3001/pokemons/${id}`)
+            let { data } = await axios.get(`http://localhost:3001/pokemons/${id}`)
             return dispatch({
                 type: GET_POKEMON_ID,
-                payload: response.data,
+                payload: data,
             })
         }catch(error){
             console.log(error)
@@ -72,7 +72,8 @@ export const createPokemon = (data) => {
     return async function (dispatch) {
         try {
             const response = await axios.post('http://localhost:3001/pokemons/', data);
-            alert('El pokemon fue creado correctamente');
+           
+            alert(`El pokemon llamado "${response.data.name}" fue creado correctamente`);
             return response;
         } catch (error) {
             console.log('Error en la creación del Pokémon:', error);
