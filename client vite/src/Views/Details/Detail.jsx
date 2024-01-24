@@ -19,15 +19,26 @@ const Detail = () => {
       {pokemon ? (
         <div>
           <h3>{pokemon.name}</h3>
+
           <img src={pokemon.image} alt={`Imagen de ${pokemon.name}`} />
-          <p>ID: {pokemon.id}</p>
-          <p>Type: {pokemon.types && pokemon.types.join(', ')}</p>
+          
+          
+          {pokemon.types && (
+            <p>Type: {Array.isArray(pokemon.types) ? pokemon.types.join(', ') : pokemon.types}</p>
+          )}
           <p>HP: {pokemon.hp}</p>
+
           <p>Attack: {pokemon.attack}</p>
-          {/* Agrega más información según la estructura de tu Pokémon */}
+          
+          <p>Defense: {pokemon.defense}</p>
+
+          <p>height: {pokemon.height}</p>
+
+          <p>weight: {pokemon.weight}</p>
+          
         </div>
       ) : (
-        <p>Cargando...</p>
+        <p>Loading...</p>
       )}
     </div>
   );

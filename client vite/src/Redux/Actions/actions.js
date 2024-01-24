@@ -7,49 +7,47 @@ import {
     GET_POKEMON_NAME,
     GET_TYPES,
     GET_TYPE_NAME,
-    FILTER_CREATED,
+    FILTER_SOURCE,
     FILTER_TYPES,
     ORDER_ATTACK,
-    ORDER_HP,
     ORDER_NAME,
-    POST_POKEMON
+    POST_POKEMON,
+    SET_PAGE,
+
 } from "./actions-types"
+
+
+export const setPage = (numPage) => {
+    return { type: SET_PAGE, payload: numPage }
+}
 
 //Obtengo todos los pokemons
 export const getPokemons = () => {
     return async function (dispatch){
         const {data} = await axios.get('http://localhost:3001/pokemons/')
 
-        const pokemons = data;
-
         dispatch({
             type: GET_POKEMONS,
-            payload: pokemons
+            payload: data
         })
     }
 
 }
 
-//Obtengo pokemon por nombre
 export const getNamePokemons = (name) => {
-    return async function (dispatch){
-        try{
-            let response = await axios.get(
-                `http://localhost:3001/pokemons?name=${name}`)
-            return dispatch({
-                type: GET_POKEMON_NAME,
-                payload: response.data
-            })
-            
-        }catch(error){
-            return dispatch({
-                type: GET_NAME_POKEMONS,
-                payload: { error: error },
-            });
-        }
-    }
-}
+    return async (dispatch) => {
+      try {
+        const { data } = await axios.get(`http://localhost:3001/pokemons?name=${name}`)
+        return dispatch({ type: GET_POKEMON_NAME, payload: data})
 
+    } catch (error) {
+        console.log(error);
+        console.log(error.message);
+      }
+    };
+  };
+
+  
 //Obtengo el detail por ID del pokemon
 export const getPokemonID = (id) => {
     return async function (dispatch){
@@ -74,30 +72,19 @@ export const createPokemon = (data) => {
             const response = await axios.post('http://localhost:3001/pokemons/', data);
            
             alert(`El pokemon llamado "${response.data.name}" fue creado correctamente`);
-            return response;
+            //return response;
+
+            return dispatch({
+                type: POST_POKEMON,
+                payload: response.data,
+            })
+
         } catch (error) {
             console.log('Error en la creación del Pokémon:', error);
             alert('Error al crear el Pokémon. Consulta la consola para más detalles.');
         }
     };
 };
-// export const createPokemon = (data) => {
-//     return async function(dispatch){
-//         try{
-//             const response = await axios.post('http://localhost:3001/pokemons/')
-//             alert('El pokemon fue creado correctamente')
-
-//             return dispatch({
-//                 type: POST_POKEMON,
-//                 payload: response.data,
-//             })
-
-//         }catch(error){
-//             console.log(error)
-//             alert(error.response.data.error)
-//         }
-//     }
-//}
 
 
 //Obtengo todos los types
@@ -105,7 +92,11 @@ export const getTypes = () => {
     return async (dispatch) => {
         try{
             const { data } = await axios.get('http://localhost:3001/types')
-            return dispatch({type: GET_TYPES, payload: data})
+            return dispatch({
+                type: GET_TYPES, 
+                payload: data
+            })
+
         }catch(error){
             console.log(error)
             console.error('Error fetching teams:', error.message);
@@ -115,49 +106,44 @@ export const getTypes = () => {
 }
 
 
-//Filtro por obtenido por DB o en API
-export const filterCreated = (payload) => {
+//Filtro obtenido por DB o en API
+export const filterBySource = (filter) => {
     return{
-        type: FILTER_CREATED,
-        payload
+        type: FILTER_SOURCE,
+        payload: filter
     }
 }
 
 
 //Filtro por types
-export const filterType = (payload) => {
+export const filterByType = (type) => {
     return{
         type: FILTER_TYPES,
-        payload
+        payload: type
     }
 }
 
 
 //ORDENAMIENTO POR NOMBRE (ALFABETICO en el HOME)
-export const orderName = (payload) => {
+// ascendente y descendente
+export const sortByName = (order) => {
     return{
         type: ORDER_NAME,
-        payload
+        payload: order
     }
 }
 
 
 //Ordenamiento por attack
-export const orderAttack = (payload) => {
+export const sortByAttack = (order) => {
     return{
         type: ORDER_ATTACK,
-        payload
+        payload: order
     }
 }
 
 
-//Ordenamiento por HP
-export const orderHp = (payload) => {
-    return{
-        type: ORDER_HP,
-        payload
-    }
-}
+
 
 
 

@@ -10,18 +10,17 @@ export const GET_TYPE_NAME = "GET_TYPE_NAME";
 
 //FILTROS
 export const FILTER_TYPES = "FILTER_TYPES";
-export const FILTER_CREATED = "FILTER_CREATED"
+export const FILTER_SOURCE = "FILTER_CREATED";
 
 //ORDENAMIENTOS
-export const ORDER_NAME = "ORDER_NAME"
-export const ORDER_ATTACK = "ORDER_ATTACK"
-export const ORDER_HP = "ORDER_HP"
+export const ORDER_NAME = "ORDER_NAME";
+export const ORDER_ATTACK = "ORDER_ATTACK";
 
 //RESET
 export const RESET_FILTERS = "RESET_FILTERS";
 
 //PAGINADO
-
+export const SET_PAGE = "SET_PAGE";
 
 
 
