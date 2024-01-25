@@ -22,7 +22,7 @@ const initialState = {
 
     allTypes: [],
 
-    pokemonsFiltered: [],
+    filteredPokemons: [],// Nuevo estado para almacenar los Pokémon filtrados
     filter: false,
 
 
@@ -77,7 +77,7 @@ const rootReducer = (state = initialState, action) => {
                 return {
                     ...state,
                     allPokemons: source,
-                    pokemonsFiltered: source,
+                    filteredPokemons: source,
                     filter: true
                 }
             }
@@ -98,36 +98,12 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 allPokemons: filterTypes,
-                pokemonsFiltered: filterTypes,
+                filteredPokemons: filterTypes,
                 filter: true,
             };
     }
 
-            
-        // case ORDER_NAME:
-        //     let sortAll = action.payload === "asc"
-        //         ? state.allPokemons.sort((a, b) => {
-        //             if(a.name > b.name){
-        //                 return 1
-        //             }
-        //             if(b.name > a.name){
-        //                 return -1
-        //             }
-        //             return 0;
-        //         })
-        //         : state.allPokemons.sort((a, b) => {
-        //             if(a.name > b.name){
-        //                 return -1
-        //             }
-        //             if(b.name > a.name){
-        //                 return 1
-        //             }
-        //             return 0
-        //         })
-        //         return {
-        //             ...state,
-        //             allPokemons: sortAll
-        //         };
+        
 
         case ORDER_NAME:
          let sortedPokemons = [...state.allPokemons]; // crea una copia de la matriz original
@@ -146,6 +122,7 @@ const rootReducer = (state = initialState, action) => {
     return {
         ...state,
         allPokemons: sortedPokemons,
+        filteredPokemons: sortedPokemons
     };
 
 
@@ -160,7 +137,8 @@ const rootReducer = (state = initialState, action) => {
             }
             return {
                 ...state,
-                allPokemons: sortedAttack
+                allPokemons: sortedAttack,
+                filteredPokemons: sortedAttack
             };
 
 
