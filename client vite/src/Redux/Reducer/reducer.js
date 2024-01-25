@@ -59,94 +59,95 @@ const rootReducer = (state = initialState, action) => {
                 allTypes: action.payload,
             };
 
-        // case FILTER_SOURCE:
-        //     let filteredPokemons = [...state.allPokemons]
-        //     if(action.payload === 'created'){
-        //         filteredPokemons = state.allPokemonsBackUp.filter((pokemon) => isNaN(pokemon.id))
-            
-        //     }else if(action.payload === 'api'){
-        //         filteredPokemons = state.allPokemonsBackUp.filter((pokemon) => !isNaN(pokemon.id))
-            
-        //     }else{
-        //         filteredPokemons = state.allPokemonsBackUp
-        //     }
-        //     console.log("filtrado", filteredPokemons)
-        //     return{
-        //         ...state,
-        //         allPokemons: filteredPokemons
-        //     }
 
         case FILTER_SOURCE:
-            if(action.payload === 'all'){
+            if(action.payload){//Si el value de la opcion existe
+                let source = []
+
+                if(action.payload === 'All'){
+                    source = state.allPokemonsBackUp
+
+                }else if(action.payload === 'Api'){
+                    source = state.allPokemonsBackUp.filter((pokemon) => !isNaN(pokemon.id))
+                
+                }else{
+                    source = state.allPokemonsBackUp.filter((pokemon) => isNaN(pokemon.id))
+                }
+
                 return {
                     ...state,
-                    allPokemonsBackUp: state.allPokemons
+                    allPokemons: source,
+                    pokemonsFiltered: source,
+                    filter: true
                 }
             }
 
-            if(action.payload === 'created'){
-                const createdPokemons = state.allPokemons?.filter((pokemon) => typeof pokemon.id === 'string')
-                return {
-                    ...state,
-                    allPokemonsBackUp: createdPokemons
-                }
-            }
-
-            if(action.payload === 'api'){
-                const apiPokemons = state.allPokemons?.filter((pokemon) => typeof pokemon.id === 'number')
-                return {
-                    ...state,
-                    allPokemonsBackUp: apiPokemons
-                }
-            }
-
-        // case FILTER_TYPES:
-        //     let filterType;
-        //     if(action.payload === "All"){
-        //         filterType = state.allPokemons
-            
-        //     }else{
-        //         filterType = state.allPokemonsBackUp.filter((e) =>
-        //             e.types.includes(action.payload)
-        //         )
-        //     }
-        //     return {
-        //         ...state,
-        //         allPokemons: filterType,
-        //     }
 
         case FILTER_TYPES:
+            if (action.payload) {
+            let filterTypes = [];
+
+            if (action.payload === 'All') {
+                filterTypes = state.allPokemonsBackUp;
+            } else {
+                filterTypes = state.allPokemonsBackUp.filter((p) =>
+                    p.types.includes(action.payload) //En esta corrección, se utiliza p.types.includes(action.payload) para verificar si el tipo seleccionado está incluido en la matriz de tipos del Pokémon.
+                );
+            }
+
             return {
                 ...state,
-                filteredPokemons: state.allPokemons.filter((pokemon) =>
-                    allPokemons.type.includes(action.payload)
-                )
-            }
+                allPokemons: filterTypes,
+                pokemonsFiltered: filterTypes,
+                filter: true,
+            };
+    }
+
             
+        // case ORDER_NAME:
+        //     let sortAll = action.payload === "asc"
+        //         ? state.allPokemons.sort((a, b) => {
+        //             if(a.name > b.name){
+        //                 return 1
+        //             }
+        //             if(b.name > a.name){
+        //                 return -1
+        //             }
+        //             return 0;
+        //         })
+        //         : state.allPokemons.sort((a, b) => {
+        //             if(a.name > b.name){
+        //                 return -1
+        //             }
+        //             if(b.name > a.name){
+        //                 return 1
+        //             }
+        //             return 0
+        //         })
+        //         return {
+        //             ...state,
+        //             allPokemons: sortAll
+        //         };
+
         case ORDER_NAME:
-            let sortAll = action.payload === "asc"
-                ? state.allPokemons.sort((a, b) => {
-                    if(a.name > b.name){
-                        return 1
-                    }
-                    if(b.name > a.name){
-                        return -1
-                    }
-                    return 0;
-                })
-                : state.allPokemons.sort((a, b) => {
-                    if(a.name > b.name){
-                        return -1
-                    }
-                    if(b.name > a.name){
-                        return 1
-                    }
-                    return 0
-                })
-                return {
-                    ...state,
-                    allPokemons: sortAll
-                };
+         let sortedPokemons = [...state.allPokemons]; // crea una copia de la matriz original
+
+         sortedPokemons.sort((a, b) => {
+         const nameA = a.name.toLowerCase();
+         const nameB = b.name.toLowerCase();
+
+         if (action.payload === "asc") {
+            return nameA.localeCompare(nameB);//LOCALCOMPARE
+        } else {
+            return nameB.localeCompare(nameA);
+        }
+    });
+
+    return {
+        ...state,
+        allPokemons: sortedPokemons,
+    };
+
 
         case ORDER_ATTACK:
             let sortedAttack = [...state.allPokemons]

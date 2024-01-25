@@ -107,20 +107,35 @@ export const getTypes = () => {
 
 
 //Filtro obtenido por DB o en API
-export const filterBySource = (filter) => {
-    return{
-        type: FILTER_SOURCE,
-        payload: filter
+export const filterBySource = (source) => {
+    return async function(dispatch){
+        try{
+            dispatch({
+                type: FILTER_SOURCE,
+                payload: source
+            })
+        }catch(error){
+            console.log(error)
+            alert(error.response.data.error)
+        }
     }
 }
 
 
 //Filtro por types
 export const filterByType = (type) => {
-    return{
-        type: FILTER_TYPES,
-        payload: type
+    return async function(dispatch){
+        try{
+            dispatch({
+                type: FILTER_TYPES,
+                payload: type
+            })
+        }catch(error){
+            console.log(error)
+            alert(error.response.data.error)
+        }
     }
+
 }
 
 
