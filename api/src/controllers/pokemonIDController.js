@@ -29,7 +29,7 @@ const pokemonIDController = async (id) => {
       if (pokemonID) {
         return {
           ...pokemonID,
-          types: pokemonID.types.spliy(', ')
+          types: pokemonID.types //.spliy(', ')
         }
       } else {
         return 'No se encontró información para el Pokémon con el ID proporcionado';

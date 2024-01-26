@@ -66,16 +66,16 @@ const rootReducer = (state = initialState, action) => {
 
         case FILTER_SOURCE:
             if (action.payload) {
-            let source = [];
+            let source = 1;
 
             if (action.payload === 'All') {
                 source = state.allPokemonsBackUp;
             } else if (action.payload === 'Api') {
                 source = state.allPokemonsBackUp.filter((pokemon) => !isNaN(pokemon.id));
-            } else {
+            
+            } else { 
                 source = state.allPokemonsBackUp.filter((pokemon) => isNaN(pokemon.id));
             }
-
 
             return {
                 ...state,
