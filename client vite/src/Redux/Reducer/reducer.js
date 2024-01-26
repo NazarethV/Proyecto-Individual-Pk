@@ -32,6 +32,7 @@ const initialState = {
     currentPage: 0,
 }
 
+
 const rootReducer = (state = initialState, action) => {
 
     switch(action.type){

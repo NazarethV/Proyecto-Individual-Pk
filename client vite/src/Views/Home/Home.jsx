@@ -160,7 +160,9 @@ const Home = () => {
 
   const indexOfLastPokemon = currentPage * pokemonsPerPage;
   const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
-  const currentPokemons = filteredPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon);
+  //Para que se rendericen todos o los filtrados -->
+  const currentPokemons = filteredPokemons.length ? filteredPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon) : allPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon);
+  //const currentPokemons = filteredPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon);
 
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber);
