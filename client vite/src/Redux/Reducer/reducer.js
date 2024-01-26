@@ -1,3 +1,4 @@
+
 import {
     GET_POKEMONS,
     GET_POKEMON_ID,
@@ -25,6 +26,8 @@ const initialState = {
     filteredPokemons: [],// Nuevo estado para almacenar los Pokémon filtrados
     filter: false,
 
+    // Agrega un campo para almacenar el tipo de ordenamiento actual
+    currentSort: null,//Ordenamiento
 
     currentPage: 0,
 }
@@ -60,85 +63,86 @@ const rootReducer = (state = initialState, action) => {
             };
 
 
+
         case FILTER_SOURCE:
-            if(action.payload){//Si el value de la opcion existe
-                let source = []
+            if (action.payload) {
+            let source = [];
 
-                if(action.payload === 'All'){
-                    source = state.allPokemonsBackUp
-
-                }else if(action.payload === 'Api'){
-                    source = state.allPokemonsBackUp.filter((pokemon) => !isNaN(pokemon.id))
-                
-                }else{
-                    source = state.allPokemonsBackUp.filter((pokemon) => isNaN(pokemon.id))
-                }
-
-                return {
-                    ...state,
-                    allPokemons: source,
-                    filteredPokemons: source,
-                    filter: true
-                }
+            if (action.payload === 'All') {
+                source = state.allPokemonsBackUp;
+            } else if (action.payload === 'Api') {
+                source = state.allPokemonsBackUp.filter((pokemon) => !isNaN(pokemon.id));
+            } else {
+                source = state.allPokemonsBackUp.filter((pokemon) => isNaN(pokemon.id));
             }
 
 
-        case FILTER_TYPES:
-            if (action.payload) {
-            let filterTypes = [];
+            return {
+                ...state,
+                filteredPokemons: source,
+                filter: true
+            };
+        }
 
+
+    case FILTER_TYPES:
+        if (action.payload) {
+            let filterTypes = [];
+    
             if (action.payload === 'All') {
                 filterTypes = state.allPokemonsBackUp;
             } else {
                 filterTypes = state.allPokemonsBackUp.filter((p) =>
-                    p.types.includes(action.payload) //En esta corrección, se utiliza p.types.includes(action.payload) para verificar si el tipo seleccionado está incluido en la matriz de tipos del Pokémon.
+                    p.types.includes(action.payload)
                 );
             }
 
+
             return {
                 ...state,
-                allPokemons: filterTypes,
                 filteredPokemons: filterTypes,
                 filter: true,
             };
     }
 
-        
 
-        case ORDER_NAME:
-         let sortedPokemons = [...state.allPokemons]; // crea una copia de la matriz original
 
-         sortedPokemons.sort((a, b) => {
-         const nameA = a.name.toLowerCase();
-         const nameB = b.name.toLowerCase();
+    case ORDER_NAME:
+        let sortedPokemonsByName = [...state.filteredPokemons];
+    
+        sortedPokemonsByName.sort((a, b) => {
+            const nameA = a.name.toLowerCase();
+            const nameB = b.name.toLowerCase();
+    
+            if (action.payload === 'asc') {
+                return nameA.localeCompare(nameB);
+            } else {
+                return nameB.localeCompare(nameA);
+            }
+        });
+    
+        return {
+            ...state,
+            filteredPokemons: sortedPokemonsByName,
 
-         if (action.payload === "asc") {
-            return nameA.localeCompare(nameB);//LOCALCOMPARE
-        } else {
-            return nameB.localeCompare(nameA);
-        }
-    });
+           
+        };
 
-    return {
-        ...state,
-        allPokemons: sortedPokemons,
-        filteredPokemons: sortedPokemons
-    };
 
 
         case ORDER_ATTACK:
-            let sortedAttack = [...state.allPokemons]
-
-            if(action.payload === "min"){
-                sortedAttack.sort((a, b) => a.attack - b.attack)
+            let sortedPokemonsByAttack = [...state.filteredPokemons];
+        
+            if (action.payload === 'min') {
+                sortedPokemonsByAttack.sort((a, b) => a.attack - b.attack);
+            } else if (action.payload === 'max') {
+                sortedPokemonsByAttack.sort((a, b) => b.attack - a.attack);
             }
-            if(action.payload === "max"){
-                sortedAttack.sort((a, b) => b.attack - a.attack)
-            }
+        
             return {
                 ...state,
-                allPokemons: sortedAttack,
-                filteredPokemons: sortedAttack
+                filteredPokemons: sortedPokemonsByAttack,
+
             };
 
 
