@@ -122,6 +122,8 @@
 // export default Home;
 
 
+
+
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Pokemons from '../../Components/Cards/Pokemons';
@@ -181,14 +183,14 @@ const Home = () => {
 
     const handleFilterSource = (event) => {
         dispatch(filterBySource(event.target.value));
-        document.getElementById("sortSelect").value = "sort";
-        document.getElementById("attackSelect").value = "attack";
+        // document.getElementById("sortSelect").value = "sort";
+        // document.getElementById("attackSelect").value = "attack";
     };
 
     const handleFilterType = (event) => {
         dispatch(filterByType(event.target.value));
-        document.getElementById("sortSelect").value = "sort";
-        document.getElementById("attackSelect").value = "attack";
+        // document.getElementById("sortSelect").value = "sort";
+        // document.getElementById("attackSelect").value = "attack";
     };
 
     const handleSortAttack = (e) => {
@@ -268,6 +270,28 @@ const Home = () => {
 };
 
 export default Home;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // import React, { useEffect } from 'react';
