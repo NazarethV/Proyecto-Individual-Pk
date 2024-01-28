@@ -13,6 +13,7 @@ import {
     ORDER_NAME,
     POST_POKEMON,
     SET_PAGE,
+    APPLY_FILTERS_AND_ORDER,
 
 } from "./actions-types"
 
@@ -159,7 +160,9 @@ export const sortByAttack = (order) => {
 
 
 
-
+export const applyFiltersAndOrder = () => ({
+    type: APPLY_FILTERS_AND_ORDER,
+  });
 
 
 

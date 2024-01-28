@@ -128,6 +128,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Pokemons from '../../Components/Cards/Pokemons';
 import { getPokemons, getTypes, filterByType, filterBySource, sortByAttack, sortByName } from '../../Redux/Actions/actions';
+import { applyFiltersAndOrder } from '../../Redux/Actions/actions';
 import Pagination from '../../Components/Pagination/Pagination';
 
 import style from './home.module.css'
@@ -138,6 +139,10 @@ const Home = () => {
     const allTypes = useSelector((state) => state.allTypes);
     const filteredPokemons = useSelector((state) => state.filteredPokemons);
     const totalPokemons = filteredPokemons.length || allPokemons.length;
+    const filterSource = useSelector((state) => state.filterSource);
+    const filterType = useSelector((state) => state.filterType);
+    const orderBy = useSelector((state) => state.orderBy);
+    const orderDirection = useSelector((state) => state.orderDirection);
 
     //const [orden, setOrden] = useState("");   //estado local vacio, q solo lo voy a usar es para cuando yo setee esta pagina me modifique el estado local y se renderice
 
@@ -180,6 +185,10 @@ const Home = () => {
         // Filtrar por "All" cuando se monta el componente
         dispatch(filterBySource("All"));
     }, [dispatch]);
+
+    useEffect(() => {
+        dispatch(applyFiltersAndOrder());
+      }, [dispatch, filterSource, filterType, orderBy, orderDirection]);
 
     const handleFilterSource = (event) => {
         dispatch(filterBySource(event.target.value));

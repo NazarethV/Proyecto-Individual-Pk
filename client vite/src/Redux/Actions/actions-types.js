@@ -16,6 +16,9 @@ export const FILTER_SOURCE = "FILTER_CREATED";
 export const ORDER_NAME = "ORDER_NAME";
 export const ORDER_ATTACK = "ORDER_ATTACK";
 
+//combinar
+export const APPLY_FILTERS_AND_ORDER = "APPLY_FILTERS_AND_ORDER"
+
 //RESET
 export const RESET_FILTERS = "RESET_FILTERS";
 
