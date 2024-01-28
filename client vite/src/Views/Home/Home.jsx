@@ -138,11 +138,13 @@ const Home = () => {
     const allPokemons = useSelector((state) => state.allPokemons);
     const allTypes = useSelector((state) => state.allTypes);
     const filteredPokemons = useSelector((state) => state.filteredPokemons);
-    const totalPokemons = filteredPokemons.length || allPokemons.length;
-    const filterSource = useSelector((state) => state.filterSource);
-    const filterType = useSelector((state) => state.filterType);
-    const orderBy = useSelector((state) => state.orderBy);
-    const orderDirection = useSelector((state) => state.orderDirection);
+
+    const sortName = useSelector((state) => state.sortName)
+    const sortAttack = useSelector((state) => state.sortAttack)
+   
+    const totalPokemons = filteredPokemons.length || allPokemons.length || "No hay";
+   
+   
 
     //const [orden, setOrden] = useState("");   //estado local vacio, q solo lo voy a usar es para cuando yo setee esta pagina me modifique el estado local y se renderice
 
@@ -168,6 +170,7 @@ const Home = () => {
   const indexOfLastPokemon = currentPage * pokemonsPerPage;
   const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
   //Para que se rendericen todos o los filtrados -->
+  
   const currentPokemons = filteredPokemons.length ? filteredPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon) : allPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon);
   //const currentPokemons = filteredPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon);
 
@@ -186,31 +189,36 @@ const Home = () => {
         dispatch(filterBySource("All"));
     }, [dispatch]);
 
-    useEffect(() => {
-        dispatch(applyFiltersAndOrder());
-      }, [dispatch, filterSource, filterType, orderBy, orderDirection]);
+    
 
     const handleFilterSource = (event) => {
         dispatch(filterBySource(event.target.value));
+
+        sortName !== "" ? dispatch(sortByName(sortName)) : sortAttack !== "" ? dispatch(sortByAttack(sortAttack)) : "nada"
+
         // document.getElementById("sortSelect").value = "sort";
         // document.getElementById("attackSelect").value = "attack";
+        
     };
 
     const handleFilterType = (event) => {
         dispatch(filterByType(event.target.value));
+
+        sortName !== "" ? dispatch(sortByName(sortName)) : sortAttack !== "" ? dispatch(sortByAttack(sortAttack)) : "nada"
+        
         // document.getElementById("sortSelect").value = "sort";
         // document.getElementById("attackSelect").value = "attack";
     };
 
+   
     const handleSortAttack = (e) => {
-        e.preventDefault();
-        if (e.target.value !== "attack") dispatch(sortByAttack(e.target.value));
+        dispatch(sortByAttack(e.target.value));
     };
-
+    
     const handleSort = (event) => {
-        event.preventDefault();
         dispatch(sortByName(event.target.value));
     };
+
 
     return (
         <div>
@@ -393,3 +401,177 @@ export default Home;
 // };
 
 // export default Home;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React, { useEffect, useState } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import Pokemons from '../../Components/Cards/Pokemons';
+// import { getPokemons, getTypes, filterByType, filterBySource, sortByAttack, sortByName } from '../../Redux/Actions/actions';
+// import { applyFiltersAndOrder } from '../../Redux/Actions/actions';
+// import Pagination from '../../Components/Pagination/Pagination';
+
+// const Home = () => {
+//     const dispatch = useDispatch();
+//     const allPokemons = useSelector((state) => state.allPokemons);
+//     const allTypes = useSelector((state) => state.allTypes);
+//     const filteredPokemons = useSelector((state) => state.filteredPokemons);
+   
+//     const totalPokemons = filteredPokemons.length || allPokemons.length || "No hay";
+   
+//     const filterSource = useSelector((state) => state.filterSource);
+//     const filterType = useSelector((state) => state.filterType);
+//     const orderBy = useSelector((state) => state.orderBy);
+//     const orderDirection = useSelector((state) => state.orderDirection);
+
+//     const [currentPage, setCurrentPage] = useState(1);
+//     const [pokemonsPerPage] = useState(12);
+
+//     const indexOfLastPokemon = currentPage * pokemonsPerPage;
+    // const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
+    // const currentPokemons = filteredPokemons.length ? filteredPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon) : allPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon);
+
+    // const paginado = (pageNumber) => {
+    //     setCurrentPage(pageNumber);
+    // };
+
+    // useEffect(() => {
+    //     dispatch(getPokemons());
+    //     dispatch(getTypes());
+    // }, [dispatch]);
+
+    // useEffect(() => {
+    //     dispatch(filterBySource("All"));
+    // }, [dispatch]);
+
+    // useEffect(() => {
+    //     dispatch(applyFiltersAndOrder());
+    // }, [dispatch, filterSource, filterType, orderBy, orderDirection]);
+
+    // const handleFilterSource = (event) => {
+    //     dispatch(filterBySource(event.target.value));
+    // };
+
+    // const handleFilterType = (event) => {
+    //     dispatch(filterByType(event.target.value));
+    // };
+
+    // const handleSortAttack = (e) => {
+    //     if (e.target.value !== "attack") dispatch(sortByAttack(e.target.value));
+    // };
+
+    // const handleSort = (event) => {
+    //     dispatch(sortByName(event.target.value));
+    // };
+
+//     return (
+//         <div>
+//             <h1>HOMEE</h1>
+//             <div>
+//                 <h2>Filtros</h2>
+//                 <div>
+//                     <select onChange={(event) => handleFilterSource(event)}>
+//                         <option value='All'>All</option>
+//                         <option value='Created'>Created | Base de datos</option>
+//                         <option value='Api'>Api</option>
+//                     </select>
+//                 </div>
+//                 <div>
+//                     <select onChange={(e) => handleFilterType(e)} name="types">
+//                         <option value="All"> All Types </option>
+//                         {allTypes?.map((t) => {
+//                             return (
+//                                 <option key={t.id} value={t.name}>
+//                                     {t.name}
+//                                 </option>
+//                             )
+//                         })}
+//                     </select>
+//                 </div>
+//             </div>
+//             <div>
+//                 <h2>Ordenamiento</h2>
+//                 <select id="sortSelect" onChange={(e) => handleSort(e)}>
+//                     <option value="sort">Sort</option>
+//                     <option value="asc">A-Z</option>
+//                     <option value="desc">Z-A</option>
+//                 </select>
+//                 <select id="attackSelect" onChange={(e) => handleSortAttack(e)}>
+//                     <option value="attack">Attack</option>
+//                     <option value="min">min</option>
+//                     <option value="max">max</option>
+//                 </select>
+//             </div>
+
+//             <Pokemons allPokemons={currentPokemons} />
+
+//             <div className="pagination-container">
+//                 <Pagination
+//                     pokemonsPerPage={pokemonsPerPage}
+//                     totalPokemons={totalPokemons}
+//                     paginado={paginado}
+//                 />
+//             </div>
+//         </div>
+//     );
+// };
+
+// export default Home;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
