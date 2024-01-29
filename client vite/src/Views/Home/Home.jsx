@@ -12,13 +12,13 @@ const Home = () => {
     const allTypes = useSelector((state) => state.allTypes);
     const filteredPokemons = useSelector((state) => state.filteredPokemons);
 
-    //Para 
+    //Para combinar y guardar
     const sortName = useSelector((state) => state.sortName)
     const sortAttack = useSelector((state) => state.sortAttack)
     const filterSource = useSelector((state) => state.filterSource)
     const filterType = useSelector((state) => state.filterType)
    
-    const totalPokemons = filteredPokemons.length || allPokemons.length || "No hay";
+    const totalPokemons = filteredPokemons.length || allPokemons.length ;
    
 
 
@@ -60,35 +60,28 @@ const Home = () => {
         dispatch(getTypes());
     }, [dispatch]);
 
+    //Para mantener los filtros cuando cambio de componente 
     useEffect(() => {
-        // Filtrar por "All" cuando se monta el componente
-        dispatch(filterBySource("All"));
-    }, [dispatch]);
-
+        // Filtrar por los valores almacenados en el estado global de Redux cuando se monta el componente
+        dispatch(filterBySource(filterSource));
+        dispatch(filterByType(filterType));
+        sortName !== "" ? dispatch(sortByName(sortName)) : sortAttack !== "" ? dispatch(sortByAttack(sortAttack)) : null;
+    }, [dispatch, filterSource, filterType, sortName, sortAttack]);
     
 
+
     const handleFilterSource = (event) => {
+        dispatch(filterBySource(event.target.value));
 
-        //if (filterType === ""){ 
-           // dispatch(filterBySource("All")); // Aplicar el filtro de origen
-        //}else{
-            dispatch(filterBySource(event.target.value));
-        //}
-        
-
-        // //combinar
-        if(filterType !== "")
-        sortName !== "" ? dispatch(sortByName(sortName)) : sortAttack !== "" ? dispatch(sortByAttack(sortAttack)) : "nada"
-
-        
+        //combinar con ordenamiento
+        //sortName !== "" ? dispatch(sortByName(sortName)) : sortAttack !== "" ? dispatch(sortByAttack(sortAttack)) : "nada"
     };
 
     const handleFilterType = (event) => {
         dispatch(filterByType(event.target.value));
 
-        //combinar
-        //filterSource !== "" ? dispatch(filterBySource(filterSource)) : "Nada"
-        sortName !== "" ? dispatch(sortByName(sortName)) : sortAttack !== "" ? dispatch(sortByAttack(sortAttack)) : "nada"
+        //combinar con ordenamiento
+        //sortName !== "" ? dispatch(sortByName(sortName)) : sortAttack !== "" ? dispatch(sortByAttack(sortAttack)) : "nada"
 
     };
 
@@ -108,17 +101,19 @@ const Home = () => {
 
     return (
         <div>
-            <h1>HOMEE</h1>
+            <h1>HOME</h1>
             <div>
-                <h2>Filtros</h2>
+                <h2>Filters</h2>
                 <div>
+                    <p>Filter by Source</p>
                     <select onChange={(event) => handleFilterSource(event)}>
-                        <option value='All'>All</option>
-                        <option value='Created'>Created | Base de datos</option>
+                        <option value='All'>All Source</option>
+                        <option value='Created'>Created | db</option>
                         <option value='Api'>Api</option>
                     </select>
                 </div>
                 <div>
+                    <p>Filter by Type</p>
                     <select onChange={(e) => handleFilterType(e)} name="types">
                         <option value="All"> All Types </option>
                         {allTypes?.map((t) => {
@@ -132,43 +127,38 @@ const Home = () => {
                 </div>
             </div>
             <div>
-                <h2>Ordenamiento</h2>
+                <h2>Order</h2>
                 <select id="nameSelect" onChange={(e) => handleSort(e)}>
-                    <option value="sort">Sort</option>
+                    <option value="sort">Sort by name</option>
                     <option value="asc">A-Z</option>
                     <option value="desc">Z-A</option>
                 </select>
                 <select id="attackSelect" onChange={(e) => handleSortAttack(e)}>
-                    <option value="attack">Attack</option>
+                    <option value="attack">Sort by attack</option>
                     <option value="min">min</option>
                     <option value="max">max</option>
                 </select>
             </div>
 
-            <Pokemons allPokemons={currentPokemons} />
+            {/* Para que no renderice ningun pokemon si no coincide nada con los filtros */}
+            {currentPokemons.length > 0 ? (
+                <Pokemons allPokemons={currentPokemons} />
+            ) : (
+                <p>No pokemon matches the selected criteria.</p> //Ningún pokémon coincide con los criterios seleccionados
+            )}
+            {/* <Pokemons allPokemons={currentPokemons} /> */}
             {/* <Pokemons allPokemons={filteredPokemons.length ? filteredPokemons : allPokemons} /> */}
-            {/* <Pokemons allPokemons={filteredPokemons} /> */}
 
             {/* Paginado */}
             <div className="pagination-container">
                 <Pagination
                     pokemonsPerPage={pokemonsPerPage}
-                    totalPokemons={totalPokemons}
+                    //allPokemons={filteredPokemons.length || allPokemons.length}
+                    totalPokemons={totalPokemons} // allPokemons={allPokemons.length}  allPokemons={filteredPokemons.length}
                     paginado={paginado}
                 />
             </div>
     </div>
-            /* <div>
-              <Pagination 
-                    pokemonsPerPage={pokemonsPerPage}
-                    // allPokemons={allPokemons.length}
-                    allPokemons={filteredPokemons.length}
-                    paginado={paginado}
-              /> 
-            </div> */
-
-
-        //</div>
     );
 };
 
