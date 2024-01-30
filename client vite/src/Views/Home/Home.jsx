@@ -32,8 +32,8 @@ const Home = () => {
     const indexOfLastPokemon = currentPage * pokemonsPerPage;
     const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
 
-    //const currentPokemons = filteredPokemons.length > 0 ? filteredPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon) : allPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon);
-    const currentPokemons = (filteredPokemons.length > 0 ? filteredPokemons : allPokemons).slice(indexOfFirstPokemon, indexOfLastPokemon);
+    const currentPokemons = filteredPokemons.length > 0 ? filteredPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon) : allPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon);
+    //const currentPokemons = (filteredPokemons.length > 0 ? filteredPokemons : allPokemons).slice(indexOfFirstPokemon, indexOfLastPokemon);
 
     const paginado = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -56,23 +56,44 @@ const Home = () => {
     const handleFilterSource = (event) => {
         dispatch(filterBySource(event.target.value));
         
+        //Para que se renderice la primer pagina
+        setCurrentPage(1)
     };
 
     const handleFilterType = (event) => {
         dispatch(filterByType(event.target.value));
+        //Para que se renderice la primer pagina
+        setCurrentPage(1)
     };
 
     const handleSortAttack = (e) => {
         dispatch(sortByAttack(e.target.value));
         document.getElementById("nameSelect").value = "sort" ;
+        //Para que se renderice la primer pagina
+        setCurrentPage(1)
     };
     
     const handleSort = (event) => {
         dispatch(sortByName(event.target.value));
         document.getElementById("attackSelect").value = "attack";
+        //Para que se renderice la primer pagina
+        setCurrentPage(1)
     };
 
-    const renderPagination = () => {
+
+    const handlePrevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    const handleNextPage = () => {
+        if (currentPage < Math.ceil(totalPokemons / pokemonsPerPage)) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    const renderPagination = (handlePrevPage, handleNextPage, currentPage) => {
       return (
             <div className="pagination-container">
                 <Pagination
@@ -80,6 +101,9 @@ const Home = () => {
                     // totalPokemons={totalPokemons}
                     pokemons={filteredPokemons.length > 0 ? filteredPokemons : allPokemons}
                     paginado={paginado}
+                    handlePrevPage={handlePrevPage}
+                    handleNextPage={handleNextPage}
+                    currentPage={currentPage}
                 />
             </div>
             );
@@ -88,11 +112,14 @@ const Home = () => {
     return (
         <div>
             <h1>HOME</h1>
+
+            <p>Page {currentPage}</p>
+            
             <div>
                 <h2>Filters</h2>
                 <div>
                     <p>Filter by Source</p>
-                    <select onChange={(event) => handleFilterSource(event)}>
+                <select value={filterSource || ''}onChange={(event) => handleFilterSource(event)}>
                         <option value='All'>All Source</option>
                         <option value='Created'>Created | db</option>
                         <option value='Api'>Api</option>
@@ -100,7 +127,7 @@ const Home = () => {
                 </div>
                 <div>
                     <p>Filter by Type</p>
-                    <select onChange={(e) => handleFilterType(e)} name="types">
+                    <select value={filterType || ''} onChange={(e) => handleFilterType(e)} name="types">
                         <option value="All"> All Types </option>
                         {allTypes?.map((t) => {
                             return (
@@ -114,19 +141,19 @@ const Home = () => {
             </div>
             <div>
                 <h2>Order</h2>
-                <select id="nameSelect" onChange={(e) => handleSort(e)}>
+                <select value={sortName || ''} id="nameSelect" onChange={(e) => handleSort(e)}>
                     <option value="sort">Sort by name</option>
                     <option value="asc">A-Z</option>
                     <option value="desc">Z-A</option>
                 </select>
-                <select id="attackSelect" onChange={(e) => handleSortAttack(e)}>
+                <select value={sortAttack || ''} id="attackSelect" onChange={(e) => handleSortAttack(e)}>
                     <option value="attack">Sort by attack</option>
                     <option value="min">min</option>
                     <option value="max">max</option>
                 </select>
             </div>
 
-            {console.log('Cantidad de pokemons después de aplicar filtros:', filteredPokemons.length)}
+            
 
             {/* Renderizar la lista de pokemons o el mensaje*/}
             {filteredPokemons.length > 0 ? (
@@ -142,7 +169,8 @@ const Home = () => {
             )}
 
             {/* Renderizo el Paginado */}
-            {renderPagination()}
+            {/* {renderPagination()} */}
+            {renderPagination(handlePrevPage, handleNextPage)}
              {/* {filteredPokemons.length > 0 && renderPagination()}  */}
 
         </div>
