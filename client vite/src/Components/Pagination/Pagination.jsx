@@ -1,50 +1,77 @@
 import React from 'react'
 
-// const Pagination = ({pokemonsPerPage, allPokemons, paginado}) => {
-//   const pageNumbers = []
 
-//   for (let i = 0; i <= Math.ceil(allPokemons / pokemonsPerPage); i++) {
-//     pageNumbers.push(i + 1);
-// }
+//no muestre números de página si no hay pokemons para mostrar
+// const Pagination = ({ pokemonsPerPage, totalPokemons, paginado }) => {
+//   const pageNumbers = [];
+
+//   console.log('Inicio: Total de Pokemons:', totalPokemons);
+//   console.log('Inicio: Números de Página:', pageNumbers);
+
+//   for (let i = 1; i <= Math.ceil(totalPokemons / pokemonsPerPage); i++) {
+//       pageNumbers.push(i);
+//   }
+
+//   if (pageNumbers.length === 0) {
+//       return null; // No hay necesidad de mostrar paginado si no hay pokemons en la página
+//   }
 
 //   return (
-//     <div>
-//       <nav>
+//       <div>
+//           <nav>
+//               <ul className="pagination">
+//                   {pageNumbers.map((number) => (
+//                       <li key={number} className="page-item">
+//                           <button onClick={() => paginado(number)} className="page-link">
+//                               {number}
+//                          </button>
+//                        </li>
+//                    ))}
+//                </ul>
+//            </nav>
+//        </div>
+//    );
+//  };
 
-//       {pageNumbers && pageNumbers.map(number => (
-//             <li  key = { number } >
-//             <button onClick={() => paginado(number)}>{number}</button>
-//             </li>
-//           ))} 
+//  export default Pagination;
 
-//       </nav>
 
-//     </div>
-//   )
-// }
 
-const Pagination = ({ pokemonsPerPage, totalPokemons, paginado }) => {
+const Pagination = ({ pokemonsPerPage, pokemons, paginado }) => {
+  const totalPokemons = pokemons.length;
   const pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(totalPokemons / pokemonsPerPage); i++) {
-    pageNumbers.push(i);
+      pageNumbers.push(i);
+  }
+
+  if (pageNumbers.length === 0) {
+      return null; // No hay necesidad de mostrar paginado si no hay pokemons en la página
   }
 
   return (
-    <div>
-      <nav>
-        <ul className="pagination">
-          {pageNumbers.map((number) => (
-            <li key={number} className="page-item">
-              <button onClick={() => paginado(number)} className="page-link">
-                {number}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    </div>
+      <div>
+          <nav>
+              <ul className="pagination">
+                  {pageNumbers.map((number) => (
+                      <li key={number} className="page-item">
+                          <button onClick={() => paginado(number)} className="page-link">
+                              {number}
+                          </button>
+                      </li>
+                  ))}
+              </ul>
+          </nav>
+      </div>
   );
 };
 
-export default Pagination
+export default Pagination;
+
+
+
+
+
+
+
+
