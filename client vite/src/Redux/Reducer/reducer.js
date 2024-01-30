@@ -20,8 +20,11 @@ const initialState = {
   filterSource: "All", // Estado para almacenar el filtro de origen seleccionado
   filterType: "All", // Estado para almacenar el filtro de tipo seleccionado
 
-  sortAttack:"",
-  sortName:"",
+  // sortAttack:"",
+  // sortName:"",
+  sortAttack: null, // Cambiado a null
+  sortName: null, // Cambiado a null
+
   currentPage: 0,
 };
 
@@ -137,10 +140,12 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         filteredPokemons: sortedPokemonsByName,
-        sortName: action.payload
+        sortName: action.payload,
+        sortAttack: null
       };
 
 
+      
     case ORDER_ATTACK:
       let sortedPokemonsByAttack = state.filteredPokemons.length ? [...state.filteredPokemons] : [...state.allPokemonsBackUp];
       if (action.payload === 'min') {
@@ -151,8 +156,12 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         filteredPokemons: sortedPokemonsByAttack,
-        sortAttack: action.payload
+        sortAttack: action.payload,
+        sortName: null
       };
+
+  
+
 
     default:
       return state;
