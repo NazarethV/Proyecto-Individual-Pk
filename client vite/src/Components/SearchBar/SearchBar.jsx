@@ -51,7 +51,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { getNamePokemons } from '../../Redux/Actions/actions'
 
-import style from './searchBar.module.css'
+import styles from './searchBar.module.css'
 
 const SearchBar = () => {
 
@@ -95,21 +95,23 @@ const SearchBar = () => {
 
 
   return (
-    <div>
-      <input
-         id='searchbar-input'
-         type='text'
-        //  value={name}
-         onKeyDown={handleKeyDown}
-         placeholder='search pokemon by name'
-         onChange={handleChange}
-      />
-      <button
-         type='submit'
-         onClick={(e) => handleSubmit(e)}
-      >Search</button>
-        
-    </div>
+    <div className={styles.searchContainer}>
+    <input
+        id='searchbar-input'
+        type='text'
+        placeholder='Search Pokemon by name'
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        className={styles.input}
+    />
+    <button
+        type='submit'
+        onClick={handleSubmit}
+        className={styles.button}
+    >
+        Search
+    </button>
+</div>
   )
 }
 

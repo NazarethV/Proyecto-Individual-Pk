@@ -1,0 +1,29 @@
+.searchContainer {
+    display: flex;
+    align-items: center;
+    margin-right: 60px; /* Ajusta el margen izquierdo para mover el SearchBar hacia la izquierda */
+}
+
+.input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 16px;
+    flex-grow: 1;
+}
+
+.button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #45a049;
+}

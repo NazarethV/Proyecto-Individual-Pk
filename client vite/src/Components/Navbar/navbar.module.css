@@ -1,0 +1,51 @@
+.navContainer {
+    width: 100%;
+    background-color: #333;
+    padding: 10px 20px;
+    position: fixed; /* Fija el navbar en su lugar */
+    top: 0; /* Lo coloca en la parte superior de la pantalla */
+    left:0;
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center; */
+    border-left: none; /* Eliminar el borde izquierdo */
+  }
+  
+  .navBrand {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo {
+    color: #fff;
+    font-size: 20px;
+    width: 40px;
+    height: auto;
+    margin-right: 10px;
+  }
+  
+  .navLinks {
+    /* display: flex; */
+    margin-top: 35px;
+  }
+  
+  .navLinks a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 20px;
+    padding: 50px;
+    transition: color 0.3s ease; /* Transición suave del color */
+  }
+  
+  .navLinks a:hover {
+    color: #ffcc00; 
+    text-decoration: none;
+  }
+
+
+.navLinks a.active {
+    color: #ffcc00; /* Color activo */
+    text-decoration: none;
+}
+
+
