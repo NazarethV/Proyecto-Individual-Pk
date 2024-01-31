@@ -19,7 +19,7 @@ const Pokemon = ({ id, name, image, types }) => {
             />
           </div>
           <div className={styles.typeContainer}>
-            <p className={styles.type}>Type: {types && types.join(" ")}</p>
+            <p className={styles.type}>Type: {types && types.join(", ")}</p>
           </div>
         </div>
       </Link>
