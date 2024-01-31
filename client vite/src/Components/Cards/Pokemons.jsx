@@ -32,6 +32,7 @@ import React from 'react';
 import styles from './pokemons.module.css';
 import Pokemon from '../Card/Pokemon';
 
+
 const Pokemons = ({ allPokemons }) => {
   return (
     <div className={styles.cardContainer}>

@@ -1,0 +1,83 @@
+.title{
+    font-family: fantasy;
+}
+
+.homeContainer {
+    text-align: center; /* Alinea el contenido al centro */
+}
+
+.filtersAndOrdersContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    margin-top: 20px; /* Agrega margen superior para centrar más los elementos */
+}
+
+.filtersContainer,
+.orderContainer {
+    width: 300px; /* Ancho fijo para los contenedores */
+    height: 200px; /* Altura fija para los contenedores */
+    padding: 10px;  /*Agrega un poco de espacio interno */
+    /*border: 1px solid #4CAF50; /* Borde ligero para visualización */
+    border-radius: 10px; /* Bordes redondeados */
+    display: flex; /* Utiliza flexbox para organizar los elementos */
+    flex-direction: column; /* Organiza los elementos en columna */
+    justify-content: center; /* Centra los elementos verticalmente */
+    align-items: center; /* Centra los elementos horizontalmente */
+    background-color: #f7f7f7; /* Color de fondo */
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    /* background-color:#4CAF50; */
+    background-color:#ECFDF5;
+}
+
+.selectContainer {
+    margin-bottom: 10px; /* Añade espacio entre los elementos */
+}
+
+.selectLabel {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color:#4CAF50; /* Color del texto del label */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    font-family: Georgia;
+}
+
+.selectDropdown {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
+    font-size: 14px;
+    width: 100%; /* Ancho completo */
+    background-color:#e6ebeb;
+    color: #141414;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    font-family:monospace;
+    
+}
+
+
+.page {
+    font-family: monospace;
+    font-size: 16px;
+    padding: 8px 12px;
+    margin: 0 auto; /* Establece márgenes automáticos para centrar horizontalmente */
+    border: 1px solid #4CAF50;
+    border-radius: 5px;
+    color: #4CAF50;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    width: 90vw; /* Establece un ancho fijo para los elementos .page */
+}
+
+.page:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+
+
+
+
+

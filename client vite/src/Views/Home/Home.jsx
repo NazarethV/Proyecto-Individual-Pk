@@ -7,7 +7,7 @@ import Pokemons from '../../Components/Cards/Pokemons';
 import { getPokemons, getTypes, filterByType, filterBySource, sortByAttack, sortByName } from '../../Redux/Actions/actions';
 import Pagination from '../../Components/Pagination/Pagination';
 
-import style from './home.module.css';
+import styles from './home.module.css';
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -110,68 +110,80 @@ const Home = () => {
     }
 
     return (
-        <div>
-            <h1>HOME</h1>
+        <div className={styles.homeContainer}>
+            <h2 className={styles.title}>HOME</h2>
 
-            <p>Page {currentPage}</p>
-            
-            <div>
-                <h2>Filters</h2>
-                <div>
-                    <p>Filter by Source</p>
-                <select value={filterSource || ''}onChange={(event) => handleFilterSource(event)}>
-                        <option value='All'>All Source</option>
-                        <option value='Created'>Created | db</option>
-                        <option value='Api'>Api</option>
-                    </select>
-                </div>
-                <div>
-                    <p>Filter by Type</p>
-                    <select value={filterType || ''} onChange={(e) => handleFilterType(e)} name="types">
-                        <option value="All"> All Types </option>
-                        {allTypes?.map((t) => {
-                            return (
-                                <option key={t.id} value={t.name}>
-                                    {t.name}
-                                </option>
-                            )
-                        })}
-                    </select>
-                </div>
+        <div className={styles.filtersAndOrdersContainer}>
+    
+        <div className={styles.filtersContainer}>
+            <div className={styles.selectContainer}>
+                <p className={styles.selectLabel}>Filter by Source</p>
+                <select className={styles.selectDropdown} value={filterSource || ''} onChange={(event) => handleFilterSource(event)}>
+                    <option value='All'>All Source</option>
+                    <option value='Created'>Created | db</option>
+                    <option value='Api'>Api</option>
+                </select>
             </div>
-            <div>
-                <h2>Order</h2>
-                <select value={sortName || ''} id="nameSelect" onChange={(e) => handleSort(e)}>
+
+            {/* Filtro por Type */}
+            <div className={`${styles.selectContainer} ${styles.filterByType}`}>
+                <p className={styles.selectLabel}>Filter by Type</p>
+                <select className={styles.selectDropdown} value={filterType || ''} onChange={(e) => handleFilterType(e)} name="types">
+                    <option value="All"> All Types </option>
+                    {allTypes?.map((t) => {
+                        return (
+                            <option key={t.id} value={t.name}>
+                                {t.name}
+                            </option>
+                        )
+                    })}
+                </select>
+            </div>
+        </div>
+
+        {/* Contenedor de ordenamientos */}
+        <div className={styles.orderContainer}>
+            <div className={styles.selectContainer}>
+                <p className={styles.selectLabel}>Order by Name</p>
+                <select className={styles.selectDropdown} value={sortName || ''} id="nameSelect" onChange={(e) => handleSort(e)}>
                     <option value="sort">Sort by name</option>
                     <option value="asc">A-Z</option>
                     <option value="desc">Z-A</option>
                 </select>
-                <select value={sortAttack || ''} id="attackSelect" onChange={(e) => handleSortAttack(e)}>
+            </div>
+
+            {/* Orden por Attack */}
+            <div className={`${styles.selectContainer} ${styles.orderByAttack}`}>
+                <p className={styles.selectLabel}>Order by Attack</p>
+                <select className={styles.selectDropdown} value={sortAttack || ''} id="attackSelect" onChange={(e) => handleSortAttack(e)}>
                     <option value="attack">Sort by attack</option>
                     <option value="min">min</option>
                     <option value="max">max</option>
                 </select>
             </div>
+        </div>
+        
+        </div>
 
-            
+            <p className={styles.page}>Page {currentPage}</p>
 
-            {/* Renderizar la lista de pokemons o el mensaje*/}
             {filteredPokemons.length > 0 ? (
                 <Pokemons allPokemons={currentPokemons} />
             ) : (
                 filterSource === 'All' && filterType === 'All' && sortName === null && sortAttack === null ? (
-                   // <Pokemons allPokemons={allPokemons} /> // Renderizar todos los pokemons al cargar la página
-                    // <Pokemons allPokemons={allPokemons} /> //currentPokemons
                     <Pokemons allPokemons={currentPokemons} />
                     ) : (
                     <p>No pokemon matches the selected criteria.</p>
                 )
             )}
 
+
+            <div className={styles.paginationContainer}>
             {/* Renderizo el Paginado */}
             {/* {renderPagination()} */}
             {renderPagination(handlePrevPage, handleNextPage)}
              {/* {filteredPokemons.length > 0 && renderPagination()}  */}
+            </div>
 
         </div>
     );

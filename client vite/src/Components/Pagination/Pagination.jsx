@@ -67,7 +67,7 @@ import React from 'react'
 // };
 
 // export default Pagination;
-
+import styles from './pagination.module.css';
 
 const Pagination = ({ pokemonsPerPage, pokemons, paginado, handlePrevPage, handleNextPage, currentPage }) => {
   const totalPokemons = pokemons.length;
@@ -82,23 +82,23 @@ const Pagination = ({ pokemonsPerPage, pokemons, paginado, handlePrevPage, handl
   }
 
   return (
-    <div>
+    <div className={styles.paginationContainer}>
         <nav>
-            <ul className="pagination">
-                <li className="page-item">
-                    <button onClick={handlePrevPage} className="page-link" disabled={currentPage === 1}>
+            <ul className={`pagination ${styles.pagination}`}>
+                <li className={`page-item ${styles.pageItem}`}>
+                    <button onClick={handlePrevPage} className={`page-link ${styles.pageLink}`} disabled={currentPage === 1}>
                         Prev
                     </button>
                 </li>
                 {pageNumbers.map((number) => (
-                    <li key={number} className="page-item">
-                        <button onClick={() => paginado(number)} className="page-link">
+                    <li key={number} className={`page-item ${styles.pageItem}`}>
+                        <button onClick={() => paginado(number)} className={`page-link ${styles.pageLink}`}>
                             {number}
                         </button>
                     </li>
                 ))}
-                <li className="page-item">
-                    <button onClick={handleNextPage} className="page-link" disabled={currentPage === Math.ceil(totalPokemons / pokemonsPerPage)}>
+                <li className={`page-item ${styles.pageItem}`}>
+                    <button onClick={handleNextPage} className={`page-link ${styles.pageLink}`} disabled={currentPage === Math.ceil(totalPokemons / pokemonsPerPage)}>
                         Next
                     </button>
                 </li>
@@ -109,7 +109,6 @@ const Pagination = ({ pokemonsPerPage, pokemons, paginado, handlePrevPage, handl
 };
 
 export default Pagination;
-
 
 
 
