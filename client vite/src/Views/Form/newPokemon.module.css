@@ -1,0 +1,130 @@
+.title{
+    font-family: fantasy;
+}
+
+.newDriverContainer {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ECFDF5;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    border: 3px solid #4CAF50;
+  }
+  
+  .formGroup {
+    margin-bottom: 20px;
+  }
+  
+  .formGroup label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Sombra de texto */
+    background: linear-gradient(to right, #53a657, #7dd56f); /* Gradiente de verde */
+  }
+  
+  .formGroup input,
+  .formGroup select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  
+  .formGroup textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    resize: vertical; /* Permite redimensionar verticalmente */
+  }
+  
+  .submitButton {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(to right, #53a657, #7dd56f); /* Gradiente de verde */
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submitButton:hover {
+    background-color: white; 
+    color: #53a657;
+    border: 3px solid #4CAF50;
+  }
+
+
+  label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+  }
+  
+  input[type='text'],
+  input[type='number'],
+  select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  button[type='submit'] {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button[type='submit']:hover {
+    background-color: #45a049;
+  }
+  
+  .error {
+    color: red;
+    margin-top: 5px;
+  }
+  
+  .typesContainer {
+    margin-top: 10px;
+  }
+  
+  .typesContainer select {
+    margin-bottom: 5px;
+  }
+  
+  .typesContainer div {
+    margin-top: 10px;
+  }
+  
+  .typesContainer div span {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #4caf50;
+    color: #fff;
+    border-radius: 5px;
+    margin-right: 5px;
+  }
+  
+  .typesContainer div button {
+    padding: 5px;
+    background-color: #ff5252;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 5px;
+  }
+

@@ -119,15 +119,18 @@ const NewPokemon = () => {
 
 
   return (
-    <div>
-    <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
-      <label>NAME:</label>
-      <input
-        type="text"
-        name="name"
-        value={stateForm?.name}
-        onChange={handleChange}
-      />
+    
+    <div className={styles.newDriverContainer}>
+      <h2 className={styles.title}>NEW DRIVER</h2>
+      <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
+        <div className={styles.formGroup}>
+        <label>NAME:</label>
+          <input
+            type="text"
+            name="name"
+            value={stateForm?.name}
+            onChange={handleChange}
+          />
       {stateErrors.name ? (
         <p className={styles.error}>{stateErrors.name}</p>
       ) : (
@@ -135,8 +138,10 @@ const NewPokemon = () => {
           <br />
         </p>
       )}
+      </div>
 
       
+      <div className={styles.formGroup}>
       <label>HP:</label>
       <input
         type="number"
@@ -151,7 +156,9 @@ const NewPokemon = () => {
           <br />
         </p>
       )}
+      </div>
       
+      <div className={styles.formGroup}>
       <label>ATTACK:</label>
           <input
             type='number'
@@ -166,7 +173,9 @@ const NewPokemon = () => {
                 <br />
               </p>
             )}
+      </div>
 
+      <div className={styles.formGroup}>
       <label>DEFENSE:</label>
           <input
             type='number'
@@ -181,7 +190,9 @@ const NewPokemon = () => {
                 <br />
               </p>
             )}
+      </div>
 
+      <div className={styles.formGroup}>
       <label>SPEED:</label>
           <input
             type='number'
@@ -196,7 +207,9 @@ const NewPokemon = () => {
                 <br />
               </p>
             )}
+       </div>
 
+       <div className={styles.formGroup}>
         <label>HEIGHT:</label>
           <input
             type='number'
@@ -211,8 +224,10 @@ const NewPokemon = () => {
                 <br />
               </p>
             )}
+        </div>
 
 
+        <div className={styles.formGroup}>
         <label>WEIGHT:</label>
           <input
             type='number'
@@ -227,8 +242,9 @@ const NewPokemon = () => {
                 <br />
               </p>
             )}
+       </div>
 
-
+       <div className={styles.formGroup}>
         <label>IMAGE:</label>
           <input
             type='text'
@@ -243,10 +259,11 @@ const NewPokemon = () => {
                 <br />
               </p>
             )}
+        </div>
 
 
 
-      <div className={styles.selectTypes}>
+        <div className={styles.formGroup}>
         <label>TYPES</label>
         {types.length === 0 ? (
           <p>No hay types disponibles</p>
@@ -263,10 +280,6 @@ const NewPokemon = () => {
               ))}
             </select>
 
-            {/* <div>
-             {stateForm.types.map((type) =>
-                <span key={type}> {type} </span>)}
-            </div> */}
 
             <div>
                 {selectedTypes.map((type) => (
