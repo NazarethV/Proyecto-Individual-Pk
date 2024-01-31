@@ -161,7 +161,16 @@ const rootReducer = (state = initialState, action) => {
       };
 
   
-
+      case RESET_FILTERS:
+        return {
+            ...initialState,
+            allPokemons: state.allPokemonsBackUp,
+            filterSource: "All",
+            filterType: "All",
+            sortAttack: null,
+            sortName: null,
+            currentPage: 0,
+        };
 
     default:
       return state;

@@ -31,15 +31,7 @@
 //       {searchResults.length > 0 && (
 //         <div>
 //           <h3>Search Results:</h3>
-//           <ul>
-//             {searchResults.map((pokemon) => (
-//               <li key={pokemon.id}>{pokemon.name}</li>
-              
-//             ))}
-//           </ul>
-//         </div>
-//       )}
-//     </div>
+//           <ul> </div>
 //   );
 // };
 
@@ -57,18 +49,6 @@ const SearchBar = () => {
 
   const dispatch = useDispatch()
   const [name, setName] = useState("")
-
-  // const handleInputChange = (event) => {
-  //   event.preventDefault()
-  //   setName(event.target.value)
-  // }
-
-  // const handleSubmit = (event) => {
-  //   //event.preventDefault()
-  //   if(!name || !isNaN(name))
-  //     return alert('Enter a valid name')
-  //   dispatch(getNamePokemons(name))
-  // }
 
   const clearInput = () => {
     document.getElementById('searchbar-input').value = ''
@@ -100,19 +80,22 @@ const SearchBar = () => {
         id='searchbar-input'
         type='text'
         placeholder='Search Pokemon by name'
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
+        onChange={(e) => handleChange(e)}
+        onKeyDown={(e) => handleKeyDown(e)}
         className={styles.input}
     />
     <button
         type='submit'
-        onClick={handleSubmit}
+        onClick={(e) => handleSubmit(e)}
         className={styles.button}
     >
         Search
     </button>
+
+
 </div>
   )
 }
 
 export default SearchBar
+   

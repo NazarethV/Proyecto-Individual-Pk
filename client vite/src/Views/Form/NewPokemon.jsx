@@ -104,14 +104,14 @@ const NewPokemon = () => {
   
     setForm(initialStateForm);
     setErrors(initialStateErrors);
-    navigate('/home');
+    // navigate('/home');
   };
 
 
   const disabledFunction = () => {
     const hasErrors = Object.values(stateErrors).some((error) => error !== '');
   
-    // Verifico si el campo types está vacío
+    // Verifico si el campo types está vacío por si se selecciona y elimina
     const isTypesEmpty = stateForm.types.length === 0;
   
     return hasErrors || isTypesEmpty;

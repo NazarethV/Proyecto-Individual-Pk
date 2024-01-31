@@ -1,6 +1,4 @@
 
-
-///////ESTE ESS
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Pokemons from '../../Components/Cards/Pokemons';
