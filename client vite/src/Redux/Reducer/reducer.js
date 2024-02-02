@@ -15,6 +15,7 @@ const initialState = {
   allPokemons: [],
   allPokemonsBackUp: [],
   pokemonId: {},
+  pokemonName: [],
   allTypes: [],
   filteredPokemons: [],
   filterSource: "All", // Estado para almacenar el filtro de origen seleccionado
@@ -43,11 +44,31 @@ const rootReducer = (state = initialState, action) => {
         pokemonId: action.payload,
       };
 
+    // case GET_POKEMON_NAME:
+    //   return {
+    //     ...state,
+    //     //allPokemons: action.payload,
+    //     //allPokemonsBackUp: action.payload,
+    //   };
+
     case GET_POKEMON_NAME:
-      return {
-        ...state,
-        allPokemons: action.payload
-      };
+      // if(action.payload.error){
+      //   return{
+      //     ...state,
+      //     allPokemons: [],
+      //     filteredPokemons: [],
+      //   }
+      // }else{
+        console.log('action.payload en reducer en GET_POKEMON_NAME: ', action.payload)
+        return{
+          ...state,
+          //allPokemons: action.payload,
+          pokemonName: action.payload,
+          
+          //filteredPokemons: action.payload,
+         // notFound: false,
+        }
+      //}
 
     case GET_TYPES:
       return {
@@ -56,73 +77,123 @@ const rootReducer = (state = initialState, action) => {
       };
 
 
+      case FILTER_SOURCE:
+  const sourceFilter = action.payload;
 
-    case FILTER_SOURCE:
-      const sourceFilter = action.payload;
+  const filteredBySource = state.allPokemonsBackUp.filter((pokemon) => {
+    if (sourceFilter === "All") {
+      return true;
+    } else if (sourceFilter === "Api") {
+      return !isNaN(pokemon.id);
+    } else {
+      return isNaN(pokemon.id);
+    }
+  });
 
-      const filteredBySource = state.allPokemonsBackUp.filter((pokemon) => {
-        if (sourceFilter === "All") {
-          return true; // Devuelve todos los pokemons si el filtro es "All"
-        } else if (sourceFilter === "Api") {
-          return !isNaN(pokemon.id); // Devuelve los pokemons de la API
-        } else {
-          return isNaN(pokemon.id); // Devuelve los pokemons de la Base de Datos
-        }
-      });
+  const filteredByTypeAndSource = filteredBySource.filter((pokemon) => {
+    if (state.filterType === "All") {
+      return true;
+    } else {
+      return pokemon.types.includes(state.filterType);
+    }
+  });
 
-      const filteredByTypeAndSource = filteredBySource.filter((pokemon) => {
-        if (state.filterType === "All") {
-          return true; // Si el filtro de tipo es "All", devuelve todos los pokemons
-        } else {
-          return pokemon.types.includes(state.filterType); // Devuelve pokemons con el tipo seleccionado
-        }
-      });
+  return {
+    ...state,
+    filteredPokemons: filteredByTypeAndSource,
+    filterSource: sourceFilter,
+    pokemonName: [], // Limpiar el estado de búsqueda por nombre al aplicar filtros
+};
 
-      
+    // case FILTER_SOURCE:
+    //   const sourceFilter = action.payload;
 
+    //   const filteredBySource = state.allPokemonsBackUp.filter((pokemon) => {
+    //     if (sourceFilter === "All") {
+    //       return true; // Devuelve todos los pokemons si el filtro es "All"
+    //     } else if (sourceFilter === "Api") {
+    //       return !isNaN(pokemon.id); // Devuelve los pokemons de la API
+    //     } else {
+    //       return isNaN(pokemon.id); // Devuelve los pokemons de la Base de Datos
+    //     }
+    //   });
 
-      return {
-        ...state,
-        filteredPokemons: filteredByTypeAndSource.length !== false ? filteredByTypeAndSource : [],//Para que no renderice nada, si no se encuentran coincidencias
-        //filteredPokemons: filteredByTypeAndSource,
-        filterSource: sourceFilter,
-    };
+    //   const filteredByTypeAndSource = filteredBySource.filter((pokemon) => {
+    //     if (state.filterType === "All") {
+    //       return true; // Si el filtro de tipo es "All", devuelve todos los pokemons
+    //     } else {
+    //       return pokemon.types.includes(state.filterType); // Devuelve pokemons con el tipo seleccionado
+    //     }
+    //   });
 
-
-
-      case FILTER_TYPES:
-        const typeFilter = action.payload;
-
-        const filteredByType = state.allPokemonsBackUp.filter((pokemon) => {
-          if (typeFilter === "All") {
-            return true; // Devuelve todos los pokemons si el filtro de tipo es "All"
-          } else {
-            return pokemon.types.includes(typeFilter); // Devuelve pokemons con el tipo seleccionado
-          }
-        });
-
-        const filteredBySourceAndType = filteredByType.filter((pokemon) => {
-          if (state.filterSource === "All") {
-            return true; // Si el filtro de source es "All", devuelve todos los pokemons
-          } else if (state.filterSource === "Api") {
-            return !isNaN(pokemon.id); // Devuelve los pokemons de la API
-          } else {
-            return isNaN(pokemon.id); // Devuelve los pokemons de la Base de Datos
-          }
-        });
+    //   return {
+    //     ...state,
+    //     filteredPokemons: filteredByTypeAndSource.length !== false ? filteredByTypeAndSource : [],//Para que no renderice nada, si no se encuentran coincidencias
+    //     //filteredPokemons: filteredByTypeAndSource,
+    //     filterSource: sourceFilter,
+    // };
 
 
-        // Manejo del caso en el que no se encuentran Pokémones que coincidan con los criterios
-        const updatedFilteredPokemons = filteredBySourceAndType.length > 0 ? filteredBySourceAndType : [];
+    case FILTER_TYPES:
+  const typeFilter = action.payload;
 
-        return {
-          ...state,
-          // filteredPokemons: filteredBySourceAndType,
-          //Para que no renderice nada, si no se encuentran coincidencias
-          filteredPokemons: updatedFilteredPokemons,
-          //filteredPokemons: filteredBySourceAndType.length > 0 ? filteredBySourceAndType : [],
-          filterType: typeFilter,
-      };
+  const filteredByType = state.allPokemonsBackUp.filter((pokemon) => {
+    if (typeFilter === "All") {
+      return true;
+    } else {
+      return pokemon.types.includes(typeFilter);
+    }
+  });
+
+  const filteredBySourceAndType = filteredByType.filter((pokemon) => {
+    if (state.filterSource === "All") {
+      return true;
+    } else if (state.filterSource === "Api") {
+      return !isNaN(pokemon.id);
+    } else {
+      return isNaN(pokemon.id);
+    }
+  });
+
+  return {
+    ...state,
+    filteredPokemons: filteredBySourceAndType,
+    filterType: typeFilter,
+    pokemonName: [], // Limpiar el estado de búsqueda por nombre al aplicar filtros
+};
+
+      // case FILTER_TYPES:
+      //   const typeFilter = action.payload;
+
+      //   const filteredByType = state.allPokemonsBackUp.filter((pokemon) => {
+      //     if (typeFilter === "All") {
+      //       return true; // Devuelve todos los pokemons si el filtro de tipo es "All"
+      //     } else {
+      //       return pokemon.types.includes(typeFilter); // Devuelve pokemons con el tipo seleccionado
+      //     }
+      //   });
+
+      //   const filteredBySourceAndType = filteredByType.filter((pokemon) => {
+      //     if (state.filterSource === "All") {
+      //       return true; // Si el filtro de source es "All", devuelve todos los pokemons
+      //     } else if (state.filterSource === "Api") {
+      //       return !isNaN(pokemon.id); // Devuelve los pokemons de la API
+      //     } else {
+      //       return isNaN(pokemon.id); // Devuelve los pokemons de la Base de Datos
+      //     }
+      //   });
+
+      //   // Manejo del caso en el que no se encuentran Pokémones que coincidan con los criterios
+      //   const updatedFilteredPokemons = filteredBySourceAndType.length > 0 ? filteredBySourceAndType : [];
+
+      //   return {
+      //     ...state,
+      //     // filteredPokemons: filteredBySourceAndType,
+      //     //Para que no renderice nada, si no se encuentran coincidencias
+      //     filteredPokemons: updatedFilteredPokemons,
+      //     //filteredPokemons: filteredBySourceAndType.length > 0 ? filteredBySourceAndType : [],
+      //     filterType: typeFilter,
+      // };
 
 
 

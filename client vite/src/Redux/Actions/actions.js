@@ -35,18 +35,48 @@ export const getPokemons = () => {
 
 }
 
-export const getNamePokemons = (name) => {
-    return async (dispatch) => {
-      try {
-        const { data } = await axios.get(`http://localhost:3001/pokemons?name=${name}`)
-        return dispatch({ type: GET_POKEMON_NAME, payload: data})
+// export const getNamePokemons = (name) => {
+//     return async (dispatch) => {
+//       try {
+//         let { data } = await axios.get(`http://localhost:3001/pokemons?name=${name}`)
+//         console.log('data en action en getNamePokemons: ', data)
+//         return dispatch({ 
+//             type: GET_POKEMON_NAME, 
+//             payload: data
+//         })
 
+//     } catch (error) {
+//         console.log(error);
+//         console.log(error.message);
+//       }
+//     };
+//   };
+export const getNamePokemons = (name) => {
+    return async (dispatch, getState) => {
+      try {
+        const { filterSource, filterType } = getState(); // Obtener los estados de filtro
+        let { data } = await axios.get(`http://localhost:3001/pokemons?name=${name}`);
+
+        // Aplicar los filtros sobre los resultados de la búsqueda por nombre
+        data = data.filter(pokemon => {
+            return (
+                (filterSource === "All" || (filterSource === "Api" && !isNaN(pokemon.id)) || (filterSource === "Created" && isNaN(pokemon.id))) &&
+                (filterType === "All" || pokemon.types.includes(filterType))
+            );
+        });
+
+        return dispatch({ 
+            type: GET_POKEMON_NAME, 
+            payload: data
+        });
     } catch (error) {
         console.log(error);
         console.log(error.message);
       }
     };
-  };
+};
+
+
 
   
 //Obtengo el detail por ID del pokemon

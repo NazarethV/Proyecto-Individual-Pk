@@ -12,26 +12,30 @@ const Home = () => {
     const allPokemons = useSelector((state) => state.allPokemons);
     const allTypes = useSelector((state) => state.allTypes);
     const filteredPokemons = useSelector((state) => state.filteredPokemons);
+    const pokemonName = useSelector((state) => state.pokemonName);
 
     // Para combinar y guardar
     const sortName = useSelector((state) => state.sortName);
     const sortAttack = useSelector((state) => state.sortAttack);
     const filterSource = useSelector((state) => state.filterSource);
     const filterType = useSelector((state) => state.filterType);
-   
-  
+
+
    const totalPokemons = filteredPokemons.length > 0 ? filteredPokemons.length : allPokemons.length;
     //Número de cantidad de pokemons a paginar
     //const totalPokemons = filteredPokemons.length > 0 ? filteredPokemons.length : allPokemons.length;
-   
+
     const [currentPage, setCurrentPage] = useState(1);
     const [pokemonsPerPage] = useState(12);
 
     const indexOfLastPokemon = currentPage * pokemonsPerPage;
     const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
 
+    //Renderiza los filtrados, o los por nombre, o todos
+
     const currentPokemons = filteredPokemons.length > 0 ? filteredPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon) : allPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon);
     //const currentPokemons = (filteredPokemons.length > 0 ? filteredPokemons : allPokemons).slice(indexOfFirstPokemon, indexOfLastPokemon);
+
 
     const paginado = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -47,13 +51,17 @@ const Home = () => {
         dispatch(filterBySource(filterSource));
         dispatch(filterByType(filterType));
         sortName !== null ? dispatch(sortByName(sortName)) : sortAttack !== null ? dispatch(sortByAttack(sortAttack)) : null;
+
+        // Limpiar el estado de búsqueda por nombre al aplicar filtros
+        //dispatch(getNamePokemons('')); // Suponiendo que esta acción limpia el estado de búsqueda por nombre
+
     }, [dispatch, filterSource, filterType, sortName, sortAttack]);
 
 
 
     const handleFilterSource = (event) => {
         dispatch(filterBySource(event.target.value));
-        
+
         //Para que se renderice la primer pagina
         setCurrentPage(1)
     };
@@ -70,7 +78,7 @@ const Home = () => {
         //Para que se renderice la primer pagina
         setCurrentPage(1)
     };
-    
+
     const handleSort = (event) => {
         dispatch(sortByName(event.target.value));
         document.getElementById("attackSelect").value = "attack";
@@ -112,7 +120,7 @@ const Home = () => {
             <h2 className={styles.title}>HOME</h2>
 
         <div className={styles.filtersAndOrdersContainer}>
-    
+
         <div className={styles.filtersContainer}>
             <div className={styles.selectContainer}>
                 <p className={styles.selectLabel}>Filter by Source</p>
@@ -160,20 +168,28 @@ const Home = () => {
                 </select>
             </div>
         </div>
-        
+
         </div>
 
             <p className={styles.page}>Page {currentPage}</p>
 
-            {filteredPokemons.length > 0 ? (
-                <Pokemons allPokemons={currentPokemons} />
+
+            {pokemonName.length > 0 ? (
+                <Pokemons allPokemons={pokemonName} />
             ) : (
-                filterSource === 'All' && filterType === 'All' && sortName === null && sortAttack === null ? (
-                    <Pokemons allPokemons={currentPokemons} />
-                    ) : (
-                    <p>No pokemon matches the selected criteria.</p>
-                )
+                <Pokemons allPokemons={currentPokemons} />
             )}
+
+
+            {/* // {filteredPokemons.length > 0 ? ( */}
+            {/* //     <Pokemons allPokemons={currentPokemons} />
+            // ) : (
+            //     filterSource === 'All' && filterType === 'All' && sortName === null && sortAttack === null ? (
+            //         <Pokemons allPokemons={currentPokemons} />
+            //         ) : (
+            //         <p>No pokemon matches the selected criteria.</p>
+            //     )
+            // )} */}
 
 
             <div className={styles.paginationContainer}>
