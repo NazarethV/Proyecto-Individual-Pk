@@ -12,6 +12,7 @@ import {
     ORDER_ATTACK,
     ORDER_NAME,
     POST_POKEMON,
+    DELETE_POKEMON,
     SET_PAGE,
     RESET_FILTERS,
 
@@ -166,12 +167,26 @@ export const sortByAttack = (order) => {
 }
 
 
+export const deletePokemonById = (id) => {
+    return async function (dispatch) {
+        try {
+            const response = await axios.delete(`http://localhost:3001/pokemons/${id}`);
+            alert(`El pokemon con ID ${id} fue eliminado correctamente`);
+            // Puedes despachar una acción para actualizar el estado local si es necesario
+            dispatch({ type: DELETE_POKEMON, payload: id });
+            return response.data;
+        } catch (error) {
+            console.log('Error al eliminar el Pokémon:', error);
+            alert('Error al eliminar el Pokémon. Consulta la consola para más detalles.');
+            throw error;
+        }
+    };
+};
+
+
 export const resetFilters = () => ({
     type: RESET_FILTERS,
 });
-
-
-
 
 
 

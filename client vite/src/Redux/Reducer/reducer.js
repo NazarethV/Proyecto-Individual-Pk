@@ -4,6 +4,7 @@ import {
   GET_POKEMON_ID,
   GET_POKEMON_NAME,
   GET_TYPES,
+  DELETE_POKEMON,
   FILTER_TYPES,
   FILTER_SOURCE,
   ORDER_NAME,
@@ -42,12 +43,6 @@ const rootReducer = (state = initialState, action) => {
         pokemonId: action.payload,
       };
 
-    // case GET_POKEMON_NAME:
-    //   return {
-    //     ...state,
-    //     //allPokemons: action.payload,
-    //     //allPokemonsBackUp: action.payload,
-    //   };
 
 
     case GET_POKEMON_NAME:
@@ -250,6 +245,16 @@ const rootReducer = (state = initialState, action) => {
             sortName: null,
             currentPage: 0,
         };
+
+      
+      case DELETE_POKEMON:
+        const id = action.payload
+        return {
+          ...state,
+          allPokemons: state.allPokemons.filter((pokemon) => pokemon.id !== id),
+          filteredPokemons: state.allPokemonsBackUp.filter((pokemon) => pokemon.id !== id),
+          allPokemonsBackUp: state.allPokemonsBackUp.filter((pokemon) => pokemon.id !== id),
+        }
 
     default:
       return state;

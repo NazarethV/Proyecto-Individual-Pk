@@ -7,7 +7,6 @@ export const GET_TYPES = "GET_TYPES";
 export const GET_TYPE_NAME = "GET_TYPE_NAME";
 
 
-
 //FILTROS
 export const FILTER_TYPES = "FILTER_TYPES";
 export const FILTER_SOURCE = "FILTER_CREATED";

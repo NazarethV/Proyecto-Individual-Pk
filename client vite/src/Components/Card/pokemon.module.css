@@ -5,10 +5,10 @@
   
   .card {
     width: 200px;
-    height: 250px;
+    height: 300px;
     border: 1px solid #4CAF50; /* Borde verde */
     border-radius: 8px;
-    padding: 16px;
+    padding: 30px;
     text-align: center;
     margin: 16px;
     transition: box-shadow 0.3s;
@@ -59,3 +59,30 @@
     margin-top: 2; /* Eliminar el margen superior */
   }
 
+.buttonDelete{
+  border-radius: 100px;
+  border-color: #3f704d;
+  color:red;
+}
+.buttonDelete:hover{
+  transform: scale(1.05); /* Aumenta ligeramente el tamaño de la card al pasar el cursor */
+  transition: transform 0.3s ease; /* Agrega una transición suave */
+
+  border-color: rgb(48, 47, 47);
+  background-color: rgb(255, 58, 58);
+  color: white;
+
+}
+
+.notRemoved{
+  color: #30533a;
+  font-family:'Courier New', Courier, monospace;
+}
+
+.notRemoved:hover{
+  color:#fd4f30;
+  
+  
+  transform: scale(1.05); /* Aumenta ligeramente el tamaño de la card al pasar el cursor */
+  transition: transform 0.3s ease; /* Agrega una transición suave */
+}

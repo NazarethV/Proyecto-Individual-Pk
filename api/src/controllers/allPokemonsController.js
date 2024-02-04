@@ -29,6 +29,7 @@ const allPokemonsController = async () => {
       return {
         ...pokemonWithoutTypes,
         types: typesFromDB,
+        source: 'database', // Agrega la propiedad "source" para poder delete sólo los pokemons de la base de datos
       };
     });
 
