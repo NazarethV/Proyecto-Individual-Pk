@@ -21,12 +21,10 @@ const initialState = {
   filterSource: "All", // Estado para almacenar el filtro de origen seleccionado
   filterType: "All", // Estado para almacenar el filtro de tipo seleccionado
 
-  // sortAttack:"",
-  // sortName:"",
+
   sortAttack: null, // Cambiado a null
   sortName: null, // Cambiado a null
 
-  currentPage: 0,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -51,24 +49,34 @@ const rootReducer = (state = initialState, action) => {
     //     //allPokemonsBackUp: action.payload,
     //   };
 
+
     case GET_POKEMON_NAME:
-      // if(action.payload.error){
-      //   return{
-      //     ...state,
-      //     allPokemons: [],
-      //     filteredPokemons: [],
-      //   }
-      // }else{
-        console.log('action.payload en reducer en GET_POKEMON_NAME: ', action.payload)
-        return{
-          ...state,
-          //allPokemons: action.payload,
-          pokemonName: action.payload,
-          
-          //filteredPokemons: action.payload,
-         // notFound: false,
-        }
-      //}
+    // Aplicar filtros a los resultados de la búsqueda por nombre
+    const filteredByName = action.payload.filter(pokemon => {
+      return (  //FIJARME EXPLICACION DE ESTA PARTE (ESTO ES LO QUE HACE QUE FINALMENTE FUNCIONE TODO MI SEARCHBAR)
+        (state.filterSource === "All" || (state.filterSource === "Api" && !isNaN(pokemon.id)) || (state.filterSource === "Created" && isNaN(pokemon.id))) &&
+        (state.filterType === "All" || pokemon.types.includes(state.filterType))
+      );
+    });
+
+    return {
+      ...state,
+      pokemonName: filteredByName,
+      currentPage: 1, // Resetear la página al buscar por nombre
+    };
+
+    // case GET_POKEMON_NAME:
+      
+    //     console.log('action.payload en reducer en GET_POKEMON_NAME: ', action.payload)
+    //     return{
+    //       ...state,
+    //       //allPokemons: action.payload,
+    //       pokemonName: action.payload,
+    //       searchName: true,
+    //       filterSource: 'All',
+    //       filterType: 'All',
+    //     }
+
 
     case GET_TYPES:
       return {
@@ -77,7 +85,7 @@ const rootReducer = (state = initialState, action) => {
       };
 
 
-      case FILTER_SOURCE:
+  case FILTER_SOURCE:
   const sourceFilter = action.payload;
 
   const filteredBySource = state.allPokemonsBackUp.filter((pokemon) => {

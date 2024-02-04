@@ -104,7 +104,7 @@ const NewPokemon = () => {
   
     setForm(initialStateForm);
     setErrors(initialStateErrors);
-    // navigate('/home');
+    navigate('/home');
   };
 
 

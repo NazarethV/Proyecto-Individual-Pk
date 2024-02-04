@@ -40,11 +40,12 @@ const Home = () => {
     const paginado = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
-
+    
     useEffect(() => {
         dispatch(getPokemons());
         dispatch(getTypes());
     }, [dispatch]);
+
 
 
     useEffect(() => {
