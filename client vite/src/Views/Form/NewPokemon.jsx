@@ -121,7 +121,7 @@ const NewPokemon = () => {
   return (
     
     <div className={styles.newDriverContainer}>
-      <h2 className={styles.title}>NEW DRIVER</h2>
+      <h2 className={styles.title}>CREATE NEW POKEMON</h2>
       <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
         <div className={styles.formGroup}>
         <label>NAME:</label>

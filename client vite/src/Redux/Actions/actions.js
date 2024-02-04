@@ -183,6 +183,24 @@ export const deletePokemonById = (id) => {
     };
 };
 
+export const createType = (typeData) => {
+    return async function (dispatch) {
+        try {
+            const response = await axios.post('http://localhost:3001/types', typeData);
+            // Si la creación es exitosa, muestra un mensaje de éxito
+            alert(`El type "${response.data.name}" fue creado correctamente`);
+          
+            // dispatch({ type: ADD_TYPE, payload: response.data });
+            return response.data;
+        } catch (error) {
+            // Si hay un error, muestra un mensaje de error
+            console.log('Error al crear el tipo:', error);
+            alert('Error al crear el tipo. Consulta la consola para más detalles.');
+            throw error;
+        }
+    };
+};
+
 
 export const resetFilters = () => ({
     type: RESET_FILTERS,

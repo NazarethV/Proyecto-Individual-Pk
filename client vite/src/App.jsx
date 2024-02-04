@@ -8,6 +8,7 @@ import Detail from './Views/Details/Detail'
 import NewPokemon from './Views/Form/NewPokemon'
 import Landing from './Views/Landing/Landing'
 import Navbar from './Components/Navbar/Navbar'
+import NewType from './Views/Form/NewType'
 
 //Acá se renderiza los principales componentes
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path='/home' element={<Home/>}/>
         <Route path='/detail/:id' element={<Detail/>}/>
         <Route path='/newPokemon' element={<NewPokemon/>}/>
+        <Route path='/newType' element={<NewType/>}/>
       </Routes>
     </div>
       

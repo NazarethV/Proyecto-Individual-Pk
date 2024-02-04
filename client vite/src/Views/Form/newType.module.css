@@ -1,0 +1,55 @@
+.newTypeContainer {
+    max-width: 800px;
+    padding: 30px;
+    background-color: #ECFDF5;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 3px solid #4CAF50;
+    margin-top: 100px;
+  }
+  
+  .title {
+    font-family: fantasy;
+  }
+  
+  .form {
+    margin-top: 20px;
+  }
+  
+  .formGroup {
+    margin-bottom: 20px;
+  }
+  
+  .label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(to right, #53a657, #7dd56f);
+  }
+  
+  .input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  
+  .submitButton {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(to right, #53a657, #7dd56f);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submitButton:hover {
+    background-color: white;
+    color: #53a657;
+    border: 3px solid #4CAF50;
+  }

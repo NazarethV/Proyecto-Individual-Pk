@@ -26,6 +26,9 @@ const Navbar = () => {
           <Link className={styles.linkForm} to="/newPokemon">
             New Pokemon
           </Link>
+          <Link className={styles.linkForm} to="/newType">
+            New Type
+          </Link>
         </div>
         {/* <div className={styles.contenedorReset}>
           {(pathname === '/home' ) ? (
