@@ -1,6 +1,25 @@
-.paginationContainer {
+/* .paginationContainer {
     display: flex;
     justify-content: center;
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.pageItem {
+    margin: 0 5px; /* Ajusta el margen entre los elementos */
+/*  */
+
+.paginationContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px; /* Espacio entre la parte superior y el componente de paginación */
 }
 
 .pagination {
@@ -27,4 +46,24 @@
 
 .pageLink:hover {
     background-color: #45a049; /* Verde más oscuro al pasar el cursor */
+}
+
+.activePage {
+    background-color: #45a049; /* Verde más oscuro para la página activa */
+}
+
+.resetButton {
+    background-color: #4CAF50; /* Verde */
+    color: rgb(255, 255, 255);
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.resetButton:hover {
+    background-color: #45a049; /* Verde más oscuro al pasar el cursor */
+}
+
+.divResetButton {
+    margin-top: 20px; /* Espacio entre el componente de paginación y el botón Reset */
 }

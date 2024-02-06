@@ -1,5 +1,5 @@
-const { Pokemon, Type } = require('../db');
-const { getPokemonDataFromApi } = require('../utils/pokemonApi');
+const { Pokemon, Type } = require('../../db');
+const { getPokemonDataFromApi } = require('../../utils/pokemonApi');
 
 const allPokemonsController = async () => {
   try {

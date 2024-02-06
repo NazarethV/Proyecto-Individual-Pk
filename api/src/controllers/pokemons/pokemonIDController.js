@@ -1,6 +1,6 @@
 const axios = require('axios');
-const { Pokemon, Type, PokemonType } = require('../db');
-const { getPokemonDataFromApi } = require('../utils/pokemonApi');
+const { Pokemon, Type, PokemonType } = require('../../db');
+const { getPokemonDataFromApi } = require('../../utils/pokemonApi');
 const { Sequelize } = require('sequelize');
 const Op = Sequelize.Op;
 

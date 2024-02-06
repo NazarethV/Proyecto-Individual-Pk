@@ -1,6 +1,6 @@
 const { Router } = require('express')
-const { getTypes } = require('../handlers/getTypes');
-const { postType } = require('../handlers/postType');
+const { getTypes } = require('../handlers/types/getTypes');
+const { postType } = require('../handlers/types/postType');
 
 
 const typeRouter = Router();

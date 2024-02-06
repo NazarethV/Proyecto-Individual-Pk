@@ -1,14 +1,17 @@
 
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom'
 import Pokemons from '../../Components/Cards/Pokemons';
-import { getPokemons, getTypes, filterByType, filterBySource, sortByAttack, sortByName } from '../../Redux/Actions/actions';
+import { getPokemons, getTypes, filterByType, filterBySource, sortByAttack, sortByName, resetFilters } from '../../Redux/Actions/actions';
 import Pagination from '../../Components/Pagination/Pagination';
 
 import styles from './home.module.css';
 
 const Home = () => {
     const dispatch = useDispatch();
+    const { pathname } = useLocation()
+
     const allPokemons = useSelector((state) => state.allPokemons);
     const allTypes = useSelector((state) => state.allTypes);
     const filteredPokemons = useSelector((state) => state.filteredPokemons);
@@ -100,6 +103,11 @@ const Home = () => {
         }
     };
 
+    ////////////
+    const handleReset = () => {
+        dispatch(resetFilters()); // Llama a la acción para restablecer los filtros
+        setCurrentPage(1); // Establece la página actual a 1
+    };
 
     const handleDeletePokemon = async (id) => {
         try {
@@ -110,7 +118,11 @@ const Home = () => {
         }
     };
 
+
     const renderPagination = (handlePrevPage, handleNextPage, currentPage) => {
+
+        // if(pokemonName.length > 0) setCurrentPage(1)
+        
       return (
             <div className="pagination-container">
                 <Pagination
@@ -121,10 +133,14 @@ const Home = () => {
                     handlePrevPage={handlePrevPage}
                     handleNextPage={handleNextPage}
                     currentPage={currentPage}
+                    /////
+                    handleReset={handleReset} // Agrega la función handleReset como prop
                 />
             </div>
             );
     }
+
+
 
     return (
         <div className={styles.homeContainer}>
@@ -181,15 +197,24 @@ const Home = () => {
         </div>
 
         </div>
-
-            <p className={styles.page}>Page {currentPage}</p>
-
+   
+            {pokemonName.length > 0 ? (
+                 <p className={styles.page}>Page 1</p>
+            ) : (
+                <p className={styles.page}>Page {currentPage}</p>
+            )
+            }
+            
 
             {/* Renderizado de los pokemons */}
             {pokemonName.length > 0 ? (
+                
                 <Pokemons allPokemons={pokemonName} />
-            ) : (
+            ) : (filteredPokemons.length > 0) || (filterSource === 'All' && filterType === 'All' && sortName === null && sortAttack === null)
+              ? (
                 <Pokemons allPokemons={currentPokemons} />
+            ) : (
+                <p>No pokemon matches the selected criteria.</p>
             )}
 
 
@@ -208,7 +233,6 @@ const Home = () => {
             {/* Renderizo el Paginado */}
             {/* {renderPagination()} */}
             {renderPagination(handlePrevPage, handleNextPage)}
-             {/* {filteredPokemons.length > 0 && renderPagination()}  */}
             </div>
 
         </div>

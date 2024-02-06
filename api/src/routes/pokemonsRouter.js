@@ -1,9 +1,9 @@
 const { Router } = require('express')
 
-const { getPokemons } = require('../handlers/getPokemons')
-const { getPokemonID } = require('../handlers/getPokemonID')
-const { postPokemon } = require('../handlers/postPokemon')
-const {deletePokemonID} = require('../handlers/deletePokemonID')
+const { getPokemons } = require('../handlers/pokemons/getPokemons')
+const { getPokemonID } = require('../handlers/pokemons/getPokemonID')
+const { postPokemon } = require('../handlers/pokemons/postPokemon')
+const {deletePokemonID} = require('../handlers/pokemons/deletePokemonID')
 
 const pokemonsRouter = Router();
 //Ya viene con '/pokemons' de index.js  --> routes

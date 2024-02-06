@@ -1,4 +1,4 @@
-const { Pokemon } = require('../db');
+const { Pokemon } = require('../../db');
 
 const deletePokemonController = async (id) => {
   try {

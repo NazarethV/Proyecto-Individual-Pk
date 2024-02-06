@@ -1,4 +1,4 @@
-const { Type } = require('../db');
+const { Type } = require('../../db');
 
 const createTypeController = async (name) => {
   try {

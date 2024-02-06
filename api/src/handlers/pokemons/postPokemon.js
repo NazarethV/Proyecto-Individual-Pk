@@ -1,5 +1,5 @@
 
-const { createPokemonController } = require('../controllers/createPokemonController')
+const { createPokemonController } = require('../../controllers/pokemons/createPokemonController')
 
 const postPokemon = async (req, res) => {
     try{

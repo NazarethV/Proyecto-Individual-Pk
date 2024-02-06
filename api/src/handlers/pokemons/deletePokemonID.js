@@ -1,4 +1,4 @@
-const { deletePokemonController } = require('../controllers/deletePokemonController');
+const { deletePokemonController } = require('../../controllers/pokemons/deletePokemonController');
 
 const deletePokemonID = async (req, res) => {
   try {

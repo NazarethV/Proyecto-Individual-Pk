@@ -57,20 +57,7 @@ const rootReducer = (state = initialState, action) => {
     return {
       ...state,
       pokemonName: filteredByName,
-      currentPage: 1, // Resetear la página al buscar por nombre
     };
-
-    // case GET_POKEMON_NAME:
-      
-    //     console.log('action.payload en reducer en GET_POKEMON_NAME: ', action.payload)
-    //     return{
-    //       ...state,
-    //       //allPokemons: action.payload,
-    //       pokemonName: action.payload,
-    //       searchName: true,
-    //       filterSource: 'All',
-    //       filterType: 'All',
-    //     }
 
 
     case GET_TYPES:
@@ -108,36 +95,10 @@ const rootReducer = (state = initialState, action) => {
     pokemonName: [], // Limpiar el estado de búsqueda por nombre al aplicar filtros
 };
 
-    // case FILTER_SOURCE:
-    //   const sourceFilter = action.payload;
-
-    //   const filteredBySource = state.allPokemonsBackUp.filter((pokemon) => {
-    //     if (sourceFilter === "All") {
-    //       return true; // Devuelve todos los pokemons si el filtro es "All"
-    //     } else if (sourceFilter === "Api") {
-    //       return !isNaN(pokemon.id); // Devuelve los pokemons de la API
-    //     } else {
-    //       return isNaN(pokemon.id); // Devuelve los pokemons de la Base de Datos
-    //     }
-    //   });
-
-    //   const filteredByTypeAndSource = filteredBySource.filter((pokemon) => {
-    //     if (state.filterType === "All") {
-    //       return true; // Si el filtro de tipo es "All", devuelve todos los pokemons
-    //     } else {
-    //       return pokemon.types.includes(state.filterType); // Devuelve pokemons con el tipo seleccionado
-    //     }
-    //   });
-
-    //   return {
-    //     ...state,
-    //     filteredPokemons: filteredByTypeAndSource.length !== false ? filteredByTypeAndSource : [],//Para que no renderice nada, si no se encuentran coincidencias
-    //     //filteredPokemons: filteredByTypeAndSource,
-    //     filterSource: sourceFilter,
-    // };
+    
 
 
-    case FILTER_TYPES:
+  case FILTER_TYPES:
   const typeFilter = action.payload;
 
   const filteredByType = state.allPokemonsBackUp.filter((pokemon) => {
@@ -164,39 +125,6 @@ const rootReducer = (state = initialState, action) => {
     filterType: typeFilter,
     pokemonName: [], // Limpiar el estado de búsqueda por nombre al aplicar filtros
 };
-
-      // case FILTER_TYPES:
-      //   const typeFilter = action.payload;
-
-      //   const filteredByType = state.allPokemonsBackUp.filter((pokemon) => {
-      //     if (typeFilter === "All") {
-      //       return true; // Devuelve todos los pokemons si el filtro de tipo es "All"
-      //     } else {
-      //       return pokemon.types.includes(typeFilter); // Devuelve pokemons con el tipo seleccionado
-      //     }
-      //   });
-
-      //   const filteredBySourceAndType = filteredByType.filter((pokemon) => {
-      //     if (state.filterSource === "All") {
-      //       return true; // Si el filtro de source es "All", devuelve todos los pokemons
-      //     } else if (state.filterSource === "Api") {
-      //       return !isNaN(pokemon.id); // Devuelve los pokemons de la API
-      //     } else {
-      //       return isNaN(pokemon.id); // Devuelve los pokemons de la Base de Datos
-      //     }
-      //   });
-
-      //   // Manejo del caso en el que no se encuentran Pokémones que coincidan con los criterios
-      //   const updatedFilteredPokemons = filteredBySourceAndType.length > 0 ? filteredBySourceAndType : [];
-
-      //   return {
-      //     ...state,
-      //     // filteredPokemons: filteredBySourceAndType,
-      //     //Para que no renderice nada, si no se encuentran coincidencias
-      //     filteredPokemons: updatedFilteredPokemons,
-      //     //filteredPokemons: filteredBySourceAndType.length > 0 ? filteredBySourceAndType : [],
-      //     filterType: typeFilter,
-      // };
 
 
 
@@ -234,18 +162,6 @@ const rootReducer = (state = initialState, action) => {
         sortName: null
       };
 
-  
-      case RESET_FILTERS:
-        return {
-            ...initialState,
-            allPokemons: state.allPokemonsBackUp,
-            filterSource: "All",
-            filterType: "All",
-            sortAttack: null,
-            sortName: null,
-            currentPage: 0,
-        };
-
       
       case DELETE_POKEMON:
         const id = action.payload
@@ -255,6 +171,19 @@ const rootReducer = (state = initialState, action) => {
           filteredPokemons: state.allPokemonsBackUp.filter((pokemon) => pokemon.id !== id),
           allPokemonsBackUp: state.allPokemonsBackUp.filter((pokemon) => pokemon.id !== id),
         }
+
+
+      case RESET_FILTERS:
+          return {
+            ...state,
+            allPokemons: state.allPokemonsBackUp,
+            filterSource: "All",
+            filterType: "All",
+            sortAttack: null,
+            sortName: null,
+            pokemonName: [],
+            currentPage: 1 // Restablecer la página actual a 1 después del reset
+          };
 
     default:
       return state;

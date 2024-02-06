@@ -1,17 +1,10 @@
 import React from 'react'
-import styles from './navbar.module.css'
-import { Link, useLocation} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import SearchBar from '../SearchBar/SearchBar'
-import { useDispatch, useSelector } from 'react-redux'
-import { resetFilters } from '../../Redux/Actions/actions'
+
+import styles from './navbar.module.css'
 
 const Navbar = () => {
-  const dispatch = useDispatch()
-  const { pathname } = useLocation()
-
-  const handleReset = () => {
-    dispatch(resetFilters())
-  }
 
   return (
     <div className={styles.navContainer}>
@@ -30,13 +23,7 @@ const Navbar = () => {
             New Type
           </Link>
         </div>
-        {/* <div className={styles.contenedorReset}>
-          {(pathname === '/home' ) ? (
-            <button className={styles.resetButton} onClick={handleReset}>
-              Reset
-            </button>
-          ): null}
-        </div> */}
+
       </div>
       <SearchBar />
     </div>

@@ -1,5 +1,5 @@
 
-const { pokemonIDController } = require('../controllers/pokemonIDController')
+const { pokemonIDController } = require('../../controllers/pokemons/pokemonIDController')
 
 //HAY QUE MANEJAR LA ASINCRONIA (Para poder utilizar promesas) (async | await) al tratar de invocar un controlador que a su vez invoca una fuente externa
 const getPokemonID = async (req, res) => {

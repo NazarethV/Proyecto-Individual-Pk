@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { getNamePokemons } from '../../Redux/Actions/actions'
 
@@ -35,6 +34,7 @@ const SearchBar = () => {
 
 
   return (
+    
     <div className={styles.searchContainer}>
     <input
         id='searchbar-input'

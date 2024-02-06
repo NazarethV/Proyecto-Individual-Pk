@@ -12,7 +12,7 @@ const Pokemon = ({ id, name, image, types }) => {
 
   const handleDeletePokemon = async (id) => {
     try{ 
-      const confirmDelete = window.confirm("¿Estás seguro de que deseas eliminar este Pokémon de la base de datos?");
+      const confirmDelete = window.confirm("¿Are you sure you want to remove the pokemon from the database?");
 
       if (confirmDelete) {
           dispatch(deletePokemonById(id));

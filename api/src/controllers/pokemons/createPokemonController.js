@@ -1,4 +1,4 @@
-const { Pokemon, Type } = require('../db');
+const { Pokemon, Type } = require('../../db');
 const { Sequelize } = require('sequelize');
 const Op = Sequelize.Op;
 

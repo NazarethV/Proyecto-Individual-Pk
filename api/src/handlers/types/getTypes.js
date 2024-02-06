@@ -1,5 +1,5 @@
-const { typeNameController } = require('../controllers/typeNameController')
-const { allTypesController } = require('../controllers/allTypesController')
+const { typeNameController } = require('../../controllers/types/typeNameController')
+const { allTypesController } = require('../../controllers/types/allTypesController')
 
 const getTypes = async (req, res) => {
     try{
