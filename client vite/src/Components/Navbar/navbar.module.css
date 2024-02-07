@@ -1,52 +1,54 @@
+
 .navContainer {
-    width: 100%;
-    background-color: #333;
-    padding: 10px 20px;
-    position: fixed; /* Fija el navbar en su lugar */
-    top: 0; /* Lo coloca en la parte superior de la pantalla */
-    left:0;
-    display: flex;
-    justify-content: space-between;
-    /* align-items: center; */
-    border-left: none; /* Eliminar el borde izquierdo */
-  }
-  
-  .navBrand {
-    display: flex;
-    align-items: center;
-  }
-  
-  .logo {
-    color: #fff;
-    font-size: 20px;
-    width: 40px;
-    height: auto;
-    margin-right: 10px;
-  }
-  
-  .navLinks {
-    /* display: flex; */
-    margin-top: 20px;
-    margin-left: 60px;
-  }
-  
-  .navLinks a {
-    color: #fff;
-    text-decoration: none;
-    margin-right: 20px;
-    padding: 50px;
-    transition: color 0.3s ease; /* Transición suave del color */
-  }
-  
-  .navLinks a:hover {
-    color: #ffcc00; 
-    text-decoration: none;
-  }
+  width: 100%;
+  background-color: #333;
+  background:linear-gradient(to right, #6ea865, #72c765,#81ca76, #8cdf7f, #a9ee9f);;
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Agrega una sombra suave */
+}
 
+.logo {
+  color: #000000;
+  font-size: 24px;
+  margin-right: 10px;
+  font-family: fantasy;
+  text-shadow: 2px 2px 4px rgb(255, 255, 255); /* Sombra suave */
+  animation: moverLogo 1s infinite alternate; /* Animación */
+}
+@keyframes moverLogo {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-5px);
+  }
+}
 
-.navLinks a.active {
-    color: #ffcc00; /* Color activo */
-    text-decoration: none;
+.navLinks {
+  display: flex;
+  margin-top: 3px; /* Reduzco el margen superior */
+}
+
+.navLinks a {
+  color: #fff;
+  text-decoration: none;
+  margin-right: 20px;
+  font-size: 20px; /* Tamaño de fuente más grande */
+  transition: color 0.3s ease; /* Transición suave del color */
+  font-family: 'Century Gothic';
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgb(3, 3, 3);
+}
+
+.navLinks a:hover {
+  color: rgb(1, 173, 1); /* Color de enlace al pasar el cursor */
+  text-shadow: 2px 2px 4px rgb(255, 255, 255);
 }
 
 .navActions {
@@ -54,15 +56,3 @@
   align-items: center;
 }
 
-.contenedorReset {
-  margin-left: 260px; /* Mueve el botón todo lo posible a la derecha */
-  margin-right: 20px; /* Agrega un margen a la derecha del botón para separarlo de los enlaces de navegación */
-}
-.resetButton {
-  background-color: #fff; /* Color de fondo del botón (ajusta según sea necesario) */
-  color: #333; /* Color del texto del botón (ajusta según sea necesario) */
-  padding: 8px 16px; /* Ajusta el relleno del botón según sea necesario */
-  border: none; /* Elimina el borde del botón */
-  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-  border-radius: 4px; /* Ajusta el radio de la esquina del botón según sea necesario */
-}

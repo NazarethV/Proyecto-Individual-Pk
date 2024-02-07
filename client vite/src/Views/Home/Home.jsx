@@ -109,14 +109,14 @@ const Home = () => {
         setCurrentPage(1); // Establece la página actual a 1
     };
 
-    const handleDeletePokemon = async (id) => {
-        try {
-            await dispatch(deletePokemonById(id));
-            // Puedes realizar alguna acción adicional después de eliminar el Pokémon, como actualizar la lista de pokémons mostrada en la página.
-        } catch (error) {
-            console.error('Error al eliminar el Pokémon:', error);
-        }
-    };
+    // const handleDeletePokemon = async (id) => {
+    //     try {
+    //         await dispatch(deletePokemonById(id));
+    //         // Puedes realizar alguna acción adicional después de eliminar el Pokémon, como actualizar la lista de pokémons mostrada en la página.
+    //     } catch (error) {
+    //         console.error('Error al eliminar el Pokémon:', error);
+    //     }
+    // };
 
 
     const renderPagination = (handlePrevPage, handleNextPage, currentPage) => {
