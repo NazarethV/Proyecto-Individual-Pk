@@ -53,16 +53,18 @@
 }
 
 .resetButton {
-    width: 250px;
-    background-color: #4CAF50; /* Verde */
-    color: rgb(255, 255, 255);
-    font-size: 14px;
+    width: 200px;
+    background-color: #8e968e; 
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 .resetButton:hover {
     background-color: #45a049; /* Verde más oscuro al pasar el cursor */
+    color: #ffffff;
 }
 
 .divResetButton {

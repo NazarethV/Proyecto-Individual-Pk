@@ -46,17 +46,10 @@ const rootReducer = (state = initialState, action) => {
 
 
     case GET_POKEMON_NAME:
-    // Aplicar filtros a los resultados de la búsqueda por nombre
-    const filteredByName = action.payload.filter(pokemon => {
-      return (  //FIJARME EXPLICACION DE ESTA PARTE (ESTO ES LO QUE HACE QUE FINALMENTE FUNCIONE TODO MI SEARCHBAR)
-        (state.filterSource === "All" || (state.filterSource === "Api" && !isNaN(pokemon.id)) || (state.filterSource === "Created" && isNaN(pokemon.id))) &&
-        (state.filterType === "All" || pokemon.types.includes(state.filterType))
-      );
-    });
 
     return {
       ...state,
-      pokemonName: filteredByName,
+      pokemonName: action.payload,
     };
 
 
@@ -92,7 +85,7 @@ const rootReducer = (state = initialState, action) => {
     ...state,
     filteredPokemons: filteredByTypeAndSource,
     filterSource: sourceFilter,
-    pokemonName: [], // Limpiar el estado de búsqueda por nombre al aplicar filtros
+    //pokemonName: [], // Limpiar el estado de búsqueda por nombre al aplicar filtros
 };
 
     
@@ -123,7 +116,7 @@ const rootReducer = (state = initialState, action) => {
     ...state,
     filteredPokemons: filteredBySourceAndType,
     filterType: typeFilter,
-    pokemonName: [], // Limpiar el estado de búsqueda por nombre al aplicar filtros
+    //pokemonName: [], // Limpiar el estado de búsqueda por nombre al aplicar filtros
 };
 
 

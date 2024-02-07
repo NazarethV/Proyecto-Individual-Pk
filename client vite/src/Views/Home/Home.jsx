@@ -1,7 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom'
 import Pokemons from '../../Components/Cards/Pokemons';
 import { getPokemons, getTypes, filterByType, filterBySource, sortByAttack, sortByName, resetFilters } from '../../Redux/Actions/actions';
 import Pagination from '../../Components/Pagination/Pagination';
@@ -10,7 +9,6 @@ import styles from './home.module.css';
 
 const Home = () => {
     const dispatch = useDispatch();
-    const { pathname } = useLocation()
 
     const allPokemons = useSelector((state) => state.allPokemons);
     const allTypes = useSelector((state) => state.allTypes);
@@ -109,19 +107,8 @@ const Home = () => {
         setCurrentPage(1); // Establece la página actual a 1
     };
 
-    // const handleDeletePokemon = async (id) => {
-    //     try {
-    //         await dispatch(deletePokemonById(id));
-    //         // Puedes realizar alguna acción adicional después de eliminar el Pokémon, como actualizar la lista de pokémons mostrada en la página.
-    //     } catch (error) {
-    //         console.error('Error al eliminar el Pokémon:', error);
-    //     }
-    // };
-
 
     const renderPagination = (handlePrevPage, handleNextPage, currentPage) => {
-
-        // if(pokemonName.length > 0) setCurrentPage(1)
         
       return (
             <div className="pagination-container">
@@ -134,7 +121,7 @@ const Home = () => {
                     handleNextPage={handleNextPage}
                     currentPage={currentPage}
                     /////
-                    handleReset={handleReset} // Agrega la función handleReset como prop
+                    handleReset={handleReset} 
                 />
             </div>
             );
@@ -208,8 +195,8 @@ const Home = () => {
 
             {/* Renderizado de los pokemons */}
             {pokemonName.length > 0 ? (
-                
                 <Pokemons allPokemons={pokemonName} />
+                
             ) : (filteredPokemons.length > 0) || (filterSource === 'All' && filterType === 'All' && sortName === null && sortAttack === null)
               ? (
                 <Pokemons allPokemons={currentPokemons} />
@@ -218,20 +205,8 @@ const Home = () => {
             )}
 
 
-            {/* // {filteredPokemons.length > 0 ? ( */}
-            {/* //     <Pokemons allPokemons={currentPokemons} />
-            // ) : (
-            //     filterSource === 'All' && filterType === 'All' && sortName === null && sortAttack === null ? (
-            //         <Pokemons allPokemons={currentPokemons} />
-            //         ) : (
-            //         <p>No pokemon matches the selected criteria.</p>
-            //     )
-            // )} */}
-
-
             <div className={styles.paginationContainer}>
             {/* Renderizo el Paginado */}
-            {/* {renderPagination()} */}
             {renderPagination(handlePrevPage, handleNextPage)}
             </div>
 

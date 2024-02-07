@@ -1,59 +1,27 @@
-body {
-  /* background-image: url('https://www.actualidadiphone.com/wp-content/uploads/2016/07/pokemon-pikachu-go.jpg'); */
-  /* background-color: #53a657; */
-  
-  background-size: cover;
-  background-position: center;
-  margin: 0; /* Elimina el margen predeterminado del body */
-  padding: 0; /* Elimina el relleno predeterminado del body */
-}
-
-.landingContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  padding: 0 20px;
-  text-align: center;
-}
+/* body {
+  background-color: #fcf9f9; 
+} */
 
 .landingTitle {
-  font-family: fantasy;
-  font-size: 40px;
-  /* color:linear-gradient(to right, #050505, #4e4e4e, #0a0a0a, #4c4d4c); */
-  color:#030303ea;
-  margin-bottom: 20px;
-  text-shadow: 4px 4px 8px rgb(79, 201, 54);
-  padding: 10px;
-  transition: transform 0.3s ease; /* Agregamos una transición suave */
-}
-
-.landingTitle:hover {
-  transform: scale(1.1); /* Aumenta el tamaño del título al 110% cuando se pasa el cursor sobre él */
-}
-
-.landingLink {
-  text-decoration: none;
+  font-family: 'Roboto', sans-serif; /* Cambiar la fuente del título */
+  font-size: 48px; /* Aumentar el tamaño del título */
+  color: #333; /* Cambiar el color del texto */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Añadir una sombra de texto */
 }
 
 .landingButton {
   height: 50px;
-  width: 150px;
+  width: 200px; /* Aumentar el ancho del botón */
   padding: 10px 20px;
-  border-radius: 5px;
-  background-color: #fff;
-  color: #000000;
-  text-shadow: 2px 2px 4px rgba(0, 1, 1, 0.5);
-  font-size: 18px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  box-shadow: 0 0 10px rgb(29, 29, 29);
+  border-radius: 25px; /* Agregar bordes redondeados */
+  background-color: #6ea865; /* Cambiar el color de fondo del botón */
+  color: #fff; /* Cambiar el color del texto del botón */
+  font-size: 20px; /* Aumentar el tamaño del texto del botón */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Añadir una sombra de texto */
 }
 
 .landingButton:hover {
-  color:#ffffff;
-  background: linear-gradient(to right, #6ea865, #72c765, #72c765, #6ea865);
-  transform: scale(1.05);
-  box-shadow: 0 0 50px rgb(255, 255, 255);
+  background-color: #72c765; /* Cambiar el color de fondo al pasar el cursor */
+  transform: scale(1.05); /* Aumentar el tamaño del botón al pasar el cursor */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Añadir una sombra al botón al pasar el cursor */
 }
