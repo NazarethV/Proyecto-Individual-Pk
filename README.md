@@ -16,7 +16,7 @@ Express: Framework de Node.js para la creación de API web y aplicaciones.
 Sequelize: ORM (Mapeo Objeto-Relacional) para la gestión de la base de datos.
 
 Instalación
-Clona el repositorio en tu máquina local:
+Clona el repositorio
 
 Instala las dependencias del cliente y del servidor:
 npm install
